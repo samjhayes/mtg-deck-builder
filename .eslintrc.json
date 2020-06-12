@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "commonjs": true
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:vue/essential"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "plugins": ["vue"],
+  "rules": {}
+}
