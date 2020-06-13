@@ -10,7 +10,7 @@
     "plugin:vue/essential"
   ],
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2018
   },
   "plugins": ["vue"],
   "rules": {}
