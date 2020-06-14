@@ -6,7 +6,9 @@
         v-for="card in browse"
         :card="card"
         :key="card.id"
-      ></BrowseCard>
+        :add-card-to-deck="addCardToDeck"
+        :remove-card-from-deck="removeCardFromDeck"
+      />
     </ol>
   </main>
 </template>
@@ -24,7 +26,9 @@ export default {
   props: {
     browseCards: Array,
     data: Array,
-    deckCards: Array
+    deckCards: Array,
+    addCardToDeck: Function,
+    removeCardFromDeck: Function
   },
   computed: {
     browse: function() {

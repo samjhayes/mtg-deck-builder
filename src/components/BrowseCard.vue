@@ -1,18 +1,28 @@
 <template>
   <li class="browse-card">
-    <div class="browse-card-details">
-      <span class="browse-card-name">{{ card.name }}</span>
-      <span class="browse-card-count">x{{ count }}</span>
-    </div>
-    <div class="browse-card-image"></div>
+    <div class="browse-card-count">x{{ count }}</div>
+    <button
+      class="browse-card-button"
+      @click.prevent="addCardToDeck(card.id)"
+      @contextmenu.prevent="removeCardFromDeck(card.id)"
+    >
+      <Card :card="card" />
+    </button>
   </li>
 </template>
 
 <script>
+import Card from "./Card.vue";
+
 export default {
   name: "BrowseCard",
+  components: {
+    Card
+  },
   props: {
-    card: Object
+    card: Object,
+    addCardToDeck: Function,
+    removeCardFromDeck: Function
   },
   computed: {
     count: function() {
@@ -27,11 +37,15 @@ export default {
   list-style: none;
   text-align: center;
   margin: 10px;
-}
-.browse-card-image {
-  width: 63px * 4;
-  height: 88px * 4;
-  background: gray;
-  margin: 10px auto 0;
+
+  &-count {
+    margin-bottom: 10px;
+  }
+
+  &-button {
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+  }
 }
 </style>

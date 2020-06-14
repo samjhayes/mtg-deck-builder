@@ -2,10 +2,17 @@
   <div id="app">
     <Browse
       :data="data"
-      :browseCards="browseCards"
+      :browse-cards="browseCards"
+      :deck-cards="deckCards"
+      :add-card-to-deck="addCardToDeck"
+      :remove-card-from-deck="removeCardFromDeck"
+    />
+    <Deck
+      :data="data"
       :deckCards="deckCards"
-    ></Browse>
-    <Deck :data="data" :deckCards="deckCards"></Deck>
+      :add-card-to-deck="addCardToDeck"
+      :remove-card-from-deck="removeCardFromDeck"
+    />
   </div>
 </template>
 
@@ -19,39 +26,91 @@ export default {
     Browse,
     Deck
   },
+  methods: {
+    addCardToDeck: function(cardId) {
+      const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
+      if (cardInDeck) {
+        cardInDeck.mainCount += 1;
+      } else {
+        this.deckCards.push({
+          id: cardId,
+          mainCount: 1,
+          sideboardCount: 0
+        });
+      }
+      // todo: allow tab change between main and sideboard
+    },
+    removeCardFromDeck: function(cardId) {
+      const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
+      if (cardInDeck) {
+        cardInDeck.mainCount -= 1;
+        if (cardInDeck.mainCount <= 0 && cardInDeck.sideboardCount <= 0) {
+          const index = this.deckCards.indexOf(cardInDeck);
+          this.deckCards.splice(index, 1);
+        }
+      }
+      // todo: allow tab change between main and sideboard
+    }
+  },
   data() {
     return {
-      browseCards: [1, 2, 3],
-      deckCards: [
-        {
-          id: 1,
-          mainCount: 2,
-          sideboardCount: 1
-        },
-        {
-          id: 3,
-          mainCount: 4,
-          sideboardCount: 0
-        }
-      ],
+      browseCards: [1, 2, 3, 4, 5],
+      deckCards: [],
       data: [
         {
           id: 1,
           name: "test1",
+          colors: ["R", "G"],
           mana: ["R", "G", 2],
-          cmc: 4
+          cmc: 4,
+          type: "sorcery",
+          subtypes: [],
+          set: "",
+          text: "this is a card"
         },
         {
           id: 2,
           name: "test2",
+          colors: ["U", "B"],
           mana: ["U", "B"],
-          cmc: 2
+          cmc: 2,
+          type: "sorcery",
+          subtypes: [],
+          set: "",
+          text: "this is a card"
         },
         {
           id: 3,
           name: "test3",
+          colors: ["W"],
           mana: ["W", "W", 3],
-          cmc: 5
+          cmc: 5,
+          type: "sorcery",
+          subtypes: [],
+          set: "",
+          text: "this is a card"
+        },
+        {
+          id: 4,
+          name: "test4",
+          colors: ["W"],
+          mana: ["W", "W", 3],
+          cmc: 5,
+          type: "sorcery",
+          subtypes: [],
+          set: "",
+          text: "this is a card"
+        },
+        {
+          id: 5,
+          name: "test5",
+          colors: ["U", "B"],
+          mana: ["U", "B"],
+          cmc: 2,
+          type: "sorcery",
+          subtypes: [],
+          set: "",
+          text: "this is a card"
         }
       ]
     };
@@ -60,10 +119,12 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-}
-#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 </style>

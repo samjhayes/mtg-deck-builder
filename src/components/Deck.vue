@@ -5,7 +5,11 @@
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
     />
-    <DeckList :deck="deck.mainCards" />
+    <DeckList
+      :deck="deck.mainCards"
+      :add-card-to-deck="addCardToDeck"
+      :remove-card-from-deck="removeCardFromDeck"
+    />
     <DeckList :deck="deck.sideboardCards" />
     <DeckStats />
   </aside>
@@ -27,7 +31,9 @@ export default {
   },
   props: {
     data: Array,
-    deckCards: Array
+    deckCards: Array,
+    addCardToDeck: Function,
+    removeCardFromDeck: Function
   },
   computed: {
     deck: function() {

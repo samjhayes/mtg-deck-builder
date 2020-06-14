@@ -1,6 +1,12 @@
 <template>
   <ol class="deck-list">
-    <DeckCard v-for="card in deck" :card="card" :key="card.id" />
+    <DeckCard
+      v-for="card in deck"
+      :card="card"
+      :key="card.id"
+      :add-card-to-deck="addCardToDeck"
+      :remove-card-from-deck="removeCardFromDeck"
+    />
   </ol>
 </template>
 
@@ -13,7 +19,9 @@ export default {
     DeckCard
   },
   props: {
-    deck: Array
+    deck: Array,
+    addCardToDeck: Function,
+    removeCardFromDeck: Function
   }
 };
 </script>
