@@ -1,16 +1,16 @@
 <template>
-  <main id="browse">
+  <div class="browse">
     <BrowseFilters />
-    <ol id="browse-cards">
+    <ol class="browse-cards">
       <BrowseCard
-        v-for="card in browse"
+        v-for="card in sortedBrowse"
         :card="card"
         :key="card.id"
         :add-card-to-deck="addCardToDeck"
         :remove-card-from-deck="removeCardFromDeck"
       />
     </ol>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -50,6 +50,10 @@ export default {
         }
       });
       return cards;
+    },
+    sortedBrowse: function() {
+      const browse = [...this.browse];
+      return this.sortCardsByName(browse);
     }
   }
 };
@@ -58,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/_variables.scss";
 
-#browse {
+.browse {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -66,7 +70,7 @@ export default {
   width: calc(100vw - #{$sidebar-width});
 }
 
-#browse-cards {
+.browse-cards {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;

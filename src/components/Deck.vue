@@ -1,5 +1,5 @@
 <template>
-  <aside id="deck">
+  <div class="deck">
     <DeckActions />
     <DeckCounter
       :main-cards="deck.mainCards"
@@ -13,7 +13,7 @@
       :remove-card-from-deck="removeCardFromDeck"
     />
     <DeckStats />
-  </aside>
+  </div>
 </template>
 
 <script>
@@ -72,7 +72,7 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/_variables.scss";
 
-#deck {
+.deck {
   position: fixed;
   top: 0;
   right: 0;

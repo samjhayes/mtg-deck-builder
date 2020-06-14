@@ -1,7 +1,7 @@
 <template>
   <ol class="deck-list">
     <DeckCard
-      v-for="card in deck"
+      v-for="card in sortedDeck"
       :card="card"
       :key="card.id"
       :add-card-to-deck="addCardToDeck"
@@ -22,6 +22,12 @@ export default {
     deck: Array,
     addCardToDeck: Function,
     removeCardFromDeck: Function
+  },
+  computed: {
+    sortedDeck: function() {
+      const deck = [...this.deck];
+      return this.sortCardsByCMC(deck);
+    }
   }
 };
 </script>

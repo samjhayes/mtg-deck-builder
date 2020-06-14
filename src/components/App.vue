@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <main id="app">
     <Browse
       :data="data"
       :browse-cards="browseCards"
@@ -15,7 +15,7 @@
       :remove-card-from-deck="removeCardFromDeck"
       :change-mode="changeMode"
     />
-  </div>
+  </main>
 </template>
 
 <script>
@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      browseCards: [1, 2, 3, 4, 5],
+      browseCards: [5, 2, 3, 1, 4],
       deckCards: [],
       mode: "main",
       data: [
