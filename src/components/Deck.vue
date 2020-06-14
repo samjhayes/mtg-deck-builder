@@ -1,7 +1,7 @@
 <template>
   <div class="deck">
     <DeckActions />
-    <DeckCounter
+    <DeckTabs
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
       :mode="mode"
@@ -17,18 +17,18 @@
 </template>
 
 <script>
-import DeckActions from "./DeckActions.vue";
-import DeckCounter from "./DeckCounter.vue";
-import DeckList from "./DeckList.vue";
-import DeckStats from "./DeckStats.vue";
+import DeckActions from './DeckActions.vue';
+import DeckTabs from './DeckTabs.vue';
+import DeckList from './DeckList.vue';
+import DeckStats from './DeckStats.vue';
 
 export default {
-  name: "Deck",
+  name: 'Deck',
   components: {
     DeckActions,
-    DeckCounter,
     DeckList,
-    DeckStats
+    DeckStats,
+    DeckTabs,
   },
   props: {
     data: Array,
@@ -36,7 +36,7 @@ export default {
     mode: String,
     addCardToDeck: Function,
     removeCardFromDeck: Function,
-    changeMode: Function
+    changeMode: Function,
   },
   computed: {
     deck: function() {
@@ -55,22 +55,22 @@ export default {
       });
       return {
         mainCards,
-        sideboardCards
+        sideboardCards,
       };
     },
     activeDeck: function() {
-      if (this.mode === "main") {
+      if (this.mode === 'main') {
         return this.deck.mainCards;
       } else {
         return this.deck.sideboardCards;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/_variables.scss";
+@import '../styles/_variables.scss';
 
 .deck {
   position: fixed;

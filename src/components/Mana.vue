@@ -8,10 +8,10 @@
 
 <script>
 export default {
-  name: "Card",
+  name: 'Card',
   props: {
-    mana: Array
-  }
+    mana: Array,
+  },
 };
 </script>
 

@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import Browse from "./Browse.vue";
-import Deck from "./Deck.vue";
+import Browse from './Browse.vue';
+import Deck from './Deck.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Browse,
-    Deck
+    Deck,
   },
   methods: {
     addCardToDeck: function(cardId) {
@@ -37,7 +37,7 @@ export default {
         const card = {
           id: cardId,
           mainCount: 0,
-          sideboardCount: 0
+          sideboardCount: 0,
         };
         card[`${this.mode}Count`] += 1;
         this.deckCards.push(card);
@@ -58,72 +58,72 @@ export default {
     },
     changeMode: function(mode) {
       this.mode = mode;
-    }
+    },
   },
   data() {
     return {
       browseCards: [5, 2, 3, 1, 4],
       deckCards: [],
-      mode: "main",
+      mode: 'main',
       data: [
         {
           id: 1,
-          name: "test1",
-          colors: ["R", "G"],
-          mana: ["R", "G", 2],
+          name: 'test1',
+          colors: ['R', 'G'],
+          mana: ['R', 'G', 2],
           cmc: 4,
-          type: "sorcery",
+          type: 'sorcery',
           subtypes: [],
-          set: "",
-          text: "this is a card"
+          set: '',
+          text: 'this is a card',
         },
         {
           id: 2,
-          name: "test2",
-          colors: ["U", "B"],
-          mana: ["U", "B"],
+          name: 'test2',
+          colors: ['U', 'B'],
+          mana: ['U', 'B'],
           cmc: 2,
-          type: "sorcery",
+          type: 'sorcery',
           subtypes: [],
-          set: "",
-          text: "this is a card"
+          set: '',
+          text: 'this is a card',
         },
         {
           id: 3,
-          name: "test3",
-          colors: ["W"],
-          mana: ["W", "W", 3],
+          name: 'test3',
+          colors: ['W'],
+          mana: ['W', 'W', 3],
           cmc: 5,
-          type: "sorcery",
+          type: 'sorcery',
           subtypes: [],
-          set: "",
-          text: "this is a card"
+          set: '',
+          text: 'this is a card',
         },
         {
           id: 4,
-          name: "test4",
-          colors: ["W"],
-          mana: ["W", "W", 3],
+          name: 'test4',
+          colors: ['W'],
+          mana: ['W', 'W', 3],
           cmc: 5,
-          type: "sorcery",
+          type: 'sorcery',
           subtypes: [],
-          set: "",
-          text: "this is a card"
+          set: '',
+          text: 'this is a card',
         },
         {
           id: 5,
-          name: "test5",
-          colors: ["U", "B"],
-          mana: ["U", "B"],
+          name: 'test5',
+          colors: ['U', 'B'],
+          mana: ['U', 'B'],
           cmc: 2,
-          type: "sorcery",
+          type: 'sorcery',
           subtypes: [],
-          set: "",
-          text: "this is a card"
-        }
-      ]
+          set: '',
+          text: 'this is a card',
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

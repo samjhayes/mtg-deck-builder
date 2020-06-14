@@ -1,18 +1,18 @@
 <template>
-  <div class="deck-counter">
+  <div class="deck-tabs">
     <button
-      class="deck-counter-button"
+      class="deck-tabs-button"
       @click.prevent="changeMode('main')"
       :data-active="mainActive"
     >
-      Main <span class="deck-counter-count">({{ mainCount }})</span>
+      Main <span class="deck-tabs-count">({{ mainCount }})</span>
     </button>
     <button
-      class="deck-counter-button"
+      class="deck-tabs-button"
       @click.prevent="changeMode('sideboard')"
       :data-active="sideboardActive"
     >
-      Sideboard <span class="deck-counter-count">({{ sideboardCount }})</span>
+      Sideboard <span class="deck-tabs-count">({{ sideboardCount }})</span>
     </button>
   </div>
 </template>
@@ -25,12 +25,12 @@ const getTotalCount = cards => {
 };
 
 export default {
-  name: "DeckCounter",
+  name: 'DeckTabs',
   props: {
     mainCards: Array,
     sideboardCards: Array,
     changeMode: Function,
-    mode: String
+    mode: String,
   },
   computed: {
     mainCount: function() {
@@ -40,17 +40,17 @@ export default {
       return getTotalCount(this.sideboardCards);
     },
     mainActive: function() {
-      return this.mode === "main";
+      return this.mode === 'main';
     },
     sideboardActive: function() {
-      return this.mode === "sideboard";
-    }
-  }
+      return this.mode === 'sideboard';
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.deck-counter {
+.deck-tabs {
   padding: 10px;
   display: flex;
 
@@ -58,8 +58,9 @@ export default {
     padding: 10px;
     flex-basis: 0;
     flex-grow: 1;
+    border: 1px solid white;
 
-    &[data-active="true"] {
+    &[data-active='true'] {
       background: black;
       color: white;
       font-weight: bold;

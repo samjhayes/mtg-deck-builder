@@ -12,23 +12,23 @@
 </template>
 
 <script>
-import Card from "./Card.vue";
+import Card from './Card.vue';
 
 export default {
-  name: "BrowseCard",
+  name: 'BrowseCard',
   components: {
-    Card
+    Card,
   },
   props: {
     card: Object,
     addCardToDeck: Function,
-    removeCardFromDeck: Function
+    removeCardFromDeck: Function,
   },
   computed: {
     count: function() {
       return parseInt(this.card.mainCount) + parseInt(this.card.sideboardCount);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -44,7 +44,7 @@ export default {
 
   &-button {
     padding: 0;
-    border: 0;
+    border: none;
   }
 }
 </style>

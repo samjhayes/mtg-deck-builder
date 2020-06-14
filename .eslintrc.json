@@ -12,6 +12,5 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "plugins": ["vue"],
-  "rules": {}
+  "plugins": ["vue"]
 }

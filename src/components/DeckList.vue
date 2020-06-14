@@ -11,24 +11,24 @@
 </template>
 
 <script>
-import DeckCard from "./DeckCard.vue";
+import DeckCard from './DeckCard.vue';
 
 export default {
-  name: "DeckList",
+  name: 'DeckList',
   components: {
-    DeckCard
+    DeckCard,
   },
   props: {
     deck: Array,
     addCardToDeck: Function,
-    removeCardFromDeck: Function
+    removeCardFromDeck: Function,
   },
   computed: {
     sortedDeck: function() {
       const deck = [...this.deck];
       return this.sortCardsByCMC(deck);
-    }
-  }
+    },
+  },
 };
 </script>
 

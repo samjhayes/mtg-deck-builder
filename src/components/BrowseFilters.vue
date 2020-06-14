@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "BrowseFilters"
+  name: 'BrowseFilters',
 };
 </script>
 

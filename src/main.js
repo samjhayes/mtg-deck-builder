@@ -1,5 +1,5 @@
-import Vue from "vue";
-import App from "./components/App.vue";
+import Vue from 'vue';
+import App from './components/App.vue';
 
 Vue.mixin({
   methods: {
@@ -16,10 +16,10 @@ Vue.mixin({
 
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
-      })
-  }
+      }),
+  },
 });
 
 new Vue({
-  render: h => h(App)
-}).$mount("#app");
+  render: h => h(App),
+}).$mount('#app');

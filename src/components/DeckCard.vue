@@ -14,18 +14,18 @@
 </template>
 
 <script>
-import Mana from "./Mana.vue";
+import Mana from './Mana.vue';
 
 export default {
-  name: "DeckCard",
+  name: 'DeckCard',
   components: {
-    Mana
+    Mana,
   },
   props: {
     card: Object,
     addCardToDeck: Function,
-    removeCardFromDeck: Function
-  }
+    removeCardFromDeck: Function,
+  },
 };
 </script>
 

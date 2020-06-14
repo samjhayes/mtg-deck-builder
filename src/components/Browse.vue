@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import BrowseCard from "./BrowseCard.vue";
-import BrowseFilters from "./BrowseFilters.vue";
+import BrowseCard from './BrowseCard.vue';
+import BrowseFilters from './BrowseFilters.vue';
 
 export default {
-  name: "Browse",
+  name: 'Browse',
   components: {
     BrowseCard,
-    BrowseFilters
+    BrowseFilters,
   },
   props: {
     browseCards: Array,
     data: Array,
     deckCards: Array,
     addCardToDeck: Function,
-    removeCardFromDeck: Function
+    removeCardFromDeck: Function,
   },
   computed: {
     browse: function() {
@@ -54,13 +54,13 @@ export default {
     sortedBrowse: function() {
       const browse = [...this.browse];
       return this.sortCardsByName(browse);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/_variables.scss";
+@import '../styles/_variables.scss';
 
 .browse {
   position: fixed;

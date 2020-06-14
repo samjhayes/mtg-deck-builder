@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "DeckStats"
+  name: 'DeckStats',
 };
 </script>
 

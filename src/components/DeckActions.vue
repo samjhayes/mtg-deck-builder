@@ -1,6 +1,6 @@
 <template>
   <div class="deck-actions">
-    <input placeholder="Untitled Deck #1" />
+    <input placeholder="Untitled Deck 1" />
     <button>Import</button>
     <button>Export</button>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "DeckActions"
+  name: 'DeckActions',
 };
 </script>
 

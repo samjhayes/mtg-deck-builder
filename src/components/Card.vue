@@ -3,23 +3,23 @@
     <span class="card-name">{{ card.name }}</span>
     <Mana :mana="card.mana" />
     <span class="card-type">{{ card.type }}</span>
-    <span class="card-subtypes">{{ card.subtypes.join(" ") }}</span>
+    <span class="card-subtypes">{{ card.subtypes.join(' ') }}</span>
     <span class="card-set">{{ card.set }}</span>
     <span class="card-text">{{ card.text }}</span>
   </div>
 </template>
 
 <script>
-import Mana from "./Mana.vue";
+import Mana from './Mana.vue';
 
 export default {
-  name: "Card",
+  name: 'Card',
   components: {
-    Mana
+    Mana,
   },
   props: {
-    card: Object
-  }
+    card: Object,
+  },
 };
 </script>
 
