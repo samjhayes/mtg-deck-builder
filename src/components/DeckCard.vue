@@ -39,7 +39,6 @@ export default {
   &-count,
   &-details {
     padding: 5px 10px;
-    cursor: pointer;
   }
 
   &-count {

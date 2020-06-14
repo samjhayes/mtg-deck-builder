@@ -10,8 +10,10 @@
     <Deck
       :data="data"
       :deckCards="deckCards"
+      :mode="mode"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
+      :change-mode="changeMode"
     />
   </div>
 </template>
@@ -30,32 +32,39 @@ export default {
     addCardToDeck: function(cardId) {
       const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
       if (cardInDeck) {
-        cardInDeck.mainCount += 1;
+        cardInDeck[`${this.mode}Count`] += 1;
       } else {
-        this.deckCards.push({
+        const card = {
           id: cardId,
-          mainCount: 1,
+          mainCount: 0,
           sideboardCount: 0
-        });
+        };
+        card[`${this.mode}Count`] += 1;
+        this.deckCards.push(card);
       }
-      // todo: allow tab change between main and sideboard
     },
     removeCardFromDeck: function(cardId) {
       const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
       if (cardInDeck) {
-        cardInDeck.mainCount -= 1;
-        if (cardInDeck.mainCount <= 0 && cardInDeck.sideboardCount <= 0) {
+        if (cardInDeck[`${this.mode}Count`] > 0) {
+          cardInDeck[`${this.mode}Count`] -= 1;
+        }
+
+        if (!cardInDeck.mainCount && !cardInDeck.sideboardCount) {
           const index = this.deckCards.indexOf(cardInDeck);
           this.deckCards.splice(index, 1);
         }
       }
-      // todo: allow tab change between main and sideboard
+    },
+    changeMode: function(mode) {
+      this.mode = mode;
     }
   },
   data() {
     return {
       browseCards: [1, 2, 3, 4, 5],
       deckCards: [],
+      mode: "main",
       data: [
         {
           id: 1,
@@ -126,5 +135,9 @@ export default {
 body {
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
 </style>

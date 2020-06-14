@@ -1,9 +1,9 @@
 <template>
-  <aside id="deck-actions">
+  <div class="deck-actions">
+    <input placeholder="Untitled Deck #1" />
     <button>Import</button>
     <button>Export</button>
-    <input placeholder="Untitled Deck #1" />
-  </aside>
+  </div>
 </template>
 
 <script>
@@ -13,7 +13,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#deck-actions {
+.deck-actions {
   padding: 10px;
+  display: flex;
+
+  input {
+    flex-grow: 1;
+  }
 }
 </style>

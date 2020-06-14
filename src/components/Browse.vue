@@ -56,13 +56,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/_variables.scss";
+
 #browse {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  width: calc(100vw - 320px);
+  width: calc(100vw - #{$sidebar-width});
 }
+
 #browse-cards {
   display: flex;
   flex-wrap: wrap;

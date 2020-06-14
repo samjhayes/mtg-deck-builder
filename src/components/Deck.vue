@@ -4,13 +4,14 @@
     <DeckCounter
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
+      :mode="mode"
+      :change-mode="changeMode"
     />
     <DeckList
-      :deck="deck.mainCards"
+      :deck="activeDeck"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
     />
-    <DeckList :deck="deck.sideboardCards" />
     <DeckStats />
   </aside>
 </template>
@@ -32,8 +33,10 @@ export default {
   props: {
     data: Array,
     deckCards: Array,
+    mode: String,
     addCardToDeck: Function,
-    removeCardFromDeck: Function
+    removeCardFromDeck: Function,
+    changeMode: Function
   },
   computed: {
     deck: function() {
@@ -54,18 +57,27 @@ export default {
         mainCards,
         sideboardCards
       };
+    },
+    activeDeck: function() {
+      if (this.mode === "main") {
+        return this.deck.mainCards;
+      } else {
+        return this.deck.sideboardCards;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/_variables.scss";
+
 #deck {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 320px;
+  width: $sidebar-width;
   background: darkgray;
 }
 </style>

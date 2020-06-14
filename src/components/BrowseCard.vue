@@ -45,7 +45,6 @@ export default {
   &-button {
     padding: 0;
     border: 0;
-    cursor: pointer;
   }
 }
 </style>
