@@ -1,21 +1,23 @@
 <template>
   <div :class="'card ' + card.colors.join(' ')">
     <span class="card-name">{{ card.name }}</span>
-    <Mana :mana="card.mana" />
-    <span class="card-type">{{ card.type }}</span>
-    <span class="card-subtypes">{{ card.subtypes.join(' ') }}</span>
-    <span class="card-set">{{ card.set }}</span>
-    <span class="card-text">{{ card.text }}</span>
+    <ManaCost :manaCost="card.manaCost" />
+    <span class="card-type" v-if="card.type">{{ card.type }}</span>
+    <span class="card-subtypes" v-if="card.subtypes.length">
+      {{ card.subtypes.join(' ') }}
+    </span>
+    <span class="card-set" v-if="card.set">{{ card.set }}</span>
+    <span class="card-text" v-if="card.text">{{ card.text }}</span>
   </div>
 </template>
 
 <script>
-import Mana from './Mana.vue';
+import ManaCost from './ManaCost.vue';
 
 export default {
   name: 'Card',
   components: {
-    Mana,
+    ManaCost,
   },
   props: {
     card: Object,
@@ -31,5 +33,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  > * {
+    margin: 5px;
+  }
 }
 </style>

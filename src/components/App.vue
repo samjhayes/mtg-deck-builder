@@ -6,6 +6,7 @@
       :deck-cards="deckCards"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
+      :set-browse-cards="setBrowseCards"
     />
     <Deck
       :data="data"
@@ -13,7 +14,7 @@
       :mode="mode"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
-      :change-mode="changeMode"
+      :set-mode="setMode"
     />
   </main>
 </template>
@@ -21,6 +22,7 @@
 <script>
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
+import testData from '../json/testData.json';
 
 export default {
   name: 'App',
@@ -56,72 +58,19 @@ export default {
         }
       }
     },
-    changeMode: function(mode) {
+    setBrowseCards: function(browseCards) {
+      this.browseCards = browseCards;
+    },
+    setMode: function(mode) {
       this.mode = mode;
     },
   },
   data() {
     return {
-      browseCards: [5, 2, 3, 1, 4],
+      browseCards: [],
       deckCards: [],
       mode: 'main',
-      data: [
-        {
-          id: 1,
-          name: 'test1',
-          colors: ['R', 'G'],
-          mana: ['R', 'G', 2],
-          cmc: 4,
-          type: 'sorcery',
-          subtypes: [],
-          set: '',
-          text: 'this is a card',
-        },
-        {
-          id: 2,
-          name: 'test2',
-          colors: ['U', 'B'],
-          mana: ['U', 'B'],
-          cmc: 2,
-          type: 'sorcery',
-          subtypes: [],
-          set: '',
-          text: 'this is a card',
-        },
-        {
-          id: 3,
-          name: 'test3',
-          colors: ['W'],
-          mana: ['W', 'W', 3],
-          cmc: 5,
-          type: 'sorcery',
-          subtypes: [],
-          set: '',
-          text: 'this is a card',
-        },
-        {
-          id: 4,
-          name: 'test4',
-          colors: ['W'],
-          mana: ['W', 'W', 3],
-          cmc: 5,
-          type: 'sorcery',
-          subtypes: [],
-          set: '',
-          text: 'this is a card',
-        },
-        {
-          id: 5,
-          name: 'test5',
-          colors: ['U', 'B'],
-          mana: ['U', 'B'],
-          cmc: 2,
-          type: 'sorcery',
-          subtypes: [],
-          set: '',
-          text: 'this is a card',
-        },
-      ],
+      data: testData,
     };
   },
 };

@@ -5,7 +5,7 @@
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
       :mode="mode"
-      :change-mode="changeMode"
+      :set-mode="setMode"
     />
     <DeckList
       :deck="activeDeck"
@@ -36,7 +36,7 @@ export default {
     mode: String,
     addCardToDeck: Function,
     removeCardFromDeck: Function,
-    changeMode: Function,
+    setMode: Function,
   },
   computed: {
     deck: function() {
@@ -78,6 +78,6 @@ export default {
   right: 0;
   bottom: 0;
   width: $sidebar-width;
-  background: darkgray;
+  background: gray;
 }
 </style>

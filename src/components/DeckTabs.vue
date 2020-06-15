@@ -2,14 +2,14 @@
   <div class="deck-tabs">
     <button
       class="deck-tabs-button"
-      @click.prevent="changeMode('main')"
+      @click.prevent="setMode('main')"
       :data-active="mainActive"
     >
       Main <span class="deck-tabs-count">({{ mainCount }})</span>
     </button>
     <button
       class="deck-tabs-button"
-      @click.prevent="changeMode('sideboard')"
+      @click.prevent="setMode('sideboard')"
       :data-active="sideboardActive"
     >
       Sideboard <span class="deck-tabs-count">({{ sideboardCount }})</span>
@@ -29,7 +29,7 @@ export default {
   props: {
     mainCards: Array,
     sideboardCards: Array,
-    changeMode: Function,
+    setMode: Function,
     mode: String,
   },
   computed: {
@@ -58,11 +58,13 @@ export default {
     padding: 10px;
     flex-basis: 0;
     flex-grow: 1;
-    border: 1px solid white;
+    border: 1px solid black;
+    background: black;
+    color: white;
 
     &[data-active='true'] {
-      background: black;
-      color: white;
+      background: white;
+      color: black;
       font-weight: bold;
     }
   }

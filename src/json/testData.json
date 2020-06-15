@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "test1",
+    "colors": ["R", "G"],
+    "manaCost": ["R", "G", 2],
+    "cmc": 4,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 2,
+    "name": "test2",
+    "colors": ["U", "B"],
+    "manaCost": ["U", "B"],
+    "cmc": 2,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 3,
+    "name": "test3",
+    "colors": ["W"],
+    "manaCost": ["W", "W", 3],
+    "cmc": 5,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 4,
+    "name": "test4",
+    "colors": ["W"],
+    "manaCost": ["W", "W", 3],
+    "cmc": 5,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 5,
+    "name": "test5",
+    "colors": ["U", "B"],
+    "manaCost": ["U", "B"],
+    "cmc": 2,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 6,
+    "name": "A card 6",
+    "colors": ["U", "B"],
+    "manaCost": ["U", "B"],
+    "cmc": 2,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 7,
+    "name": "Another card 7",
+    "colors": ["U", "B"],
+    "manaCost": ["U", "B"],
+    "cmc": 2,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  },
+  {
+    "id": 8,
+    "name": "Some card 9",
+    "colors": ["U", "B"],
+    "manaCost": ["U", "B"],
+    "cmc": 2,
+    "type": "sorcery",
+    "subtypes": [],
+    "set": "",
+    "text": "this is a card"
+  }
+]
