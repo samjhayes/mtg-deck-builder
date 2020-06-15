@@ -25,7 +25,7 @@ export default {
   flex-wrap: wrap;
 
   .mana {
-    margin: 2px;
+    margin: 1px;
 
     &:first-of-type {
       margin-left: 0;

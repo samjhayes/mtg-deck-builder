@@ -1,7 +1,10 @@
 <template>
   <div class="browse">
     <BrowseFilters />
-    <ol class="browse-cards">
+    <span class="loading" v-if="!data.length">
+      Loading
+    </span>
+    <ol class="browse-cards" v-else>
       <BrowseCard
         v-for="card in sortedBrowse"
         :card="card"
@@ -60,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/_variables.scss';
+@import '../_variables.scss';
 
 .browse {
   position: fixed;
@@ -70,10 +73,17 @@ export default {
   width: calc(100vw - #{$sidebar-width});
 }
 
-.browse-cards {
+.browse-cards,
+.loading {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
   margin: 0;
+}
+
+.loading {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>

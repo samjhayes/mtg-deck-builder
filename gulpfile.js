@@ -18,7 +18,6 @@ function scryfall(cb) {
       }
     })
     .catch(error => {
-      // Handle error
       console.error(error);
       cb();
     });
@@ -28,14 +27,31 @@ function scryfallOracleCards(uri, cb) {
   fetch(uri)
     .then(response => response.json())
     .then(response => {
-      fs.writeFileSync('./dist/cards.json', JSON.stringify(response));
+      fs.writeFileSync(
+        './src/assets/oracle.json',
+        JSON.stringify(response, null, 2)
+      );
+      remapCards(response, cb);
       cb();
     })
     .catch(error => {
-      // Handle error
       console.error(error);
       cb();
     });
+}
+
+function remapCards(data, cb) {
+  let cards = data.filter(card => card.image_uris !== undefined);
+  cards = cards.map(card => ({
+    id: card.id,
+    name: card.name,
+    mana_cost: card.mana_cost,
+    type_line: card.type_line,
+    oracle_text: card.oracle_text,
+    image: card.image_uris.normal,
+  }));
+  fs.writeFileSync('./src/assets/oracle.min.json', JSON.stringify(cards));
+  cb();
 }
 
 exports.default = scryfall;

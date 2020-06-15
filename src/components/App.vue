@@ -6,7 +6,6 @@
       :deck-cards="deckCards"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
-      :set-browse-cards="setBrowseCards"
     />
     <Deck
       :data="data"
@@ -22,13 +21,16 @@
 <script>
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
-import testData from '../json/testData.json';
 
 export default {
   name: 'App',
   components: {
     Browse,
     Deck,
+  },
+  mounted: async function() {
+    const data = await import(/* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json');
+    this.data = data.default;
   },
   methods: {
     addCardToDeck: function(cardId) {
@@ -67,10 +69,10 @@ export default {
   },
   data() {
     return {
-      browseCards: [],
+      browseCards: ['86bf43b1-8d4e-4759-bb2d-0b2e03ba7012', '7002a87b-a55f-42ec-b247-119a3229129f', '57ebd34e-dfe1-4093-a302-db395047a546'],
       deckCards: [],
       mode: 'main',
-      data: testData,
+      data: [],
     };
   },
 };

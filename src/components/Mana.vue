@@ -14,6 +14,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$mana_size: 25px;
+
 .mana {
   background: black;
   color: white;
@@ -21,7 +23,8 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: $mana_size;
+  height: $mana_size;
+  font-size: 11px;
 }
 </style>

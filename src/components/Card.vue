@@ -1,13 +1,14 @@
 <template>
-  <div :class="'card ' + card.colors.join(' ')">
-    <span class="card-name">{{ card.name }}</span>
-    <ManaCost :manaCost="card.manaCost" />
-    <span class="card-type" v-if="card.type">{{ card.type }}</span>
-    <span class="card-subtypes" v-if="card.subtypes.length">
-      {{ card.subtypes.join(' ') }}
+  <div :class="`card ${colors}`" :style="`background-image:url(${card.image})`">
+    <!-- <span class="card-name">{{ card.name }}</span>
+    <ManaCost v-if="manaCost" :manaCost="manaCost" />
+    <span class="card-type" v-if="card.type_line">{{ card.type_line }}</span>
+    <span class="card-subtypes" v-if="subtypes">
+      {{ subtypes }}
     </span>
-    <span class="card-set" v-if="card.set">{{ card.set }}</span>
-    <span class="card-text" v-if="card.text">{{ card.text }}</span>
+    <span class="card-text" v-if="card.oracle_text">
+      {{ card.oracle_text }}
+    </span> -->
   </div>
 </template>
 
@@ -22,6 +23,24 @@ export default {
   props: {
     card: Object,
   },
+  computed: {
+    colors: function() {
+      if (this.card.colors) {
+        const colors = [...this.card.colors];
+        return colors.sort().join(' ');
+      }
+      return '';
+    },
+    subtypes: function() {
+      if (this.card.subtypes) {
+        return this.card.subtypes.join(' ');
+      }
+      return '';
+    },
+    manaCost: function() {
+      return this.processManaCost(this.card.mana_cost);
+    },
+  },
 };
 </script>
 
@@ -29,7 +48,9 @@ export default {
 .card {
   width: 63px * 4;
   height: 88px * 4;
-  background: darkgray;
+  background-color: darkgray;
+  background-size: contain;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -35,7 +35,6 @@ export default {
   input {
     margin-right: 10px;
     width: 300px;
-    height: 28px;
     padding: 5px 10px;
   }
 

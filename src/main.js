@@ -17,6 +17,17 @@ Vue.mixin({
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
       }),
+    processManaCost: manaCost => {
+      if (manaCost) {
+        let processedManaCost = manaCost;
+        processedManaCost = processedManaCost
+          .trim()
+          .slice(1, processedManaCost.length - 1)
+          .split('}{');
+        return processedManaCost;
+      }
+      return [];
+    },
   },
 });
 

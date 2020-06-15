@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/_variables.scss';
+@import '../_variables.scss';
 
 .deck {
   position: fixed;
