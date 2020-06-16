@@ -13,12 +13,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .deck-actions {
-  padding: 10px;
-  display: flex;
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
 
   input {
     flex-grow: 1;
+  }
+
+  button {
+    min-height: $min-input-size;
+    background: lightgray;
+    padding: 10px;
   }
 }
 </style>

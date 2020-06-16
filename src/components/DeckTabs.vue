@@ -50,11 +50,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .deck-tabs {
-  padding: 10px;
+  margin: 0;
   display: flex;
 
   &-button {
+    min-height: $min-input-size;
     padding: 10px;
     flex-basis: 0;
     flex-grow: 1;

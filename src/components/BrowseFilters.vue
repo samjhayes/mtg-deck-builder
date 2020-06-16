@@ -49,13 +49,12 @@ export default {
 <style lang="scss" scoped>
 .browse-filters {
   background: gray;
-  padding: 10px 30px;
+  padding: 10px;
   display: flex;
 
   input {
     margin-right: 10px;
-    width: 300px;
-    padding: 5px 10px;
+    width: 400px;
   }
 
   button {

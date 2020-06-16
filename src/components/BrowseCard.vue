@@ -33,19 +33,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$card-width: 64;
+$card-height: 88;
+
+$aspect-ratio: $card-height / $card-width;
+
 .browse-card {
-  list-style: none;
   text-align: center;
-  margin: 10px;
 
   &-count {
     margin-bottom: 10px;
   }
 
   &-button {
-    padding: 0;
-    border: none;
-    background-color: transparent;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: percentage($aspect_ratio);
   }
 }
 </style>

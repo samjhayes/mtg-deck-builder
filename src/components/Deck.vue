@@ -79,5 +79,6 @@ export default {
   bottom: 0;
   width: $sidebar-width;
   background: gray;
+  padding: 0 10px;
 }
 </style>

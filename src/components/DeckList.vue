@@ -34,7 +34,6 @@ export default {
 
 <style lang="scss" scoped>
 .deck-list {
-  padding: 10px;
-  margin: 0;
+  margin: 10px 0;
 }
 </style>

@@ -36,10 +36,10 @@ export default {
 
 <style lang="scss" scoped>
 .deck-card {
-  margin: 0 0 5px;
-  padding: 0;
-  list-style: none;
+  margin-bottom: 5px;
   display: flex;
+  height: 40px;
+  background-color: white;
 
   &:last-of-type {
     margin-bottom: 0;

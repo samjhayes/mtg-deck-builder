@@ -29,7 +29,7 @@ export default {
     Browse,
     Deck,
   },
-  mounted: async function() {
+  mounted: async function mounted() {
     const data = await import(/* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json');
     this.data = data.default;
   },
@@ -69,7 +69,7 @@ export default {
         let results = this.data.filter(card => {
           return card.name.toLowerCase().startsWith(search);
         });
-        results = results.slice(0, 100);
+        results = results.slice(0, 32);
         this.browseCards = results.map(card => card.id);
       } else {
         this.browseCards = [];
@@ -88,6 +88,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../_variables.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -97,7 +99,22 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+input {
+  min-height: $min-input-size;
+  padding: 5px 10px;
+  border: none;
+}
+
 button {
   cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
 }
 </style>

@@ -44,9 +44,10 @@ function remapOracle(json) {
   const remapped = cards.map(card => ({
     id: card.oracle_id,
     name: card.name,
-    mana_cost: card.mana_cost,
-    type_line: card.type_line,
-    text: card.oracle_text,
+    mana: card.mana_cost,
+    cmc: card.cmc,
+    type: card.type_line,
+    keywords: card.keywords,
     image: card.image_uris.normal,
   }));
   return JSON.stringify(remapped);

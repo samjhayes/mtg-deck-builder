@@ -83,18 +83,36 @@ export default {
 
 .browse-cards,
 .loading {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
-  margin: 0;
+  padding: 30px;
 }
 
 .browse-cards {
+  display: grid;
+  column-gap: 30px;
   overflow-y: auto;
+  grid-template-columns: auto;
+
+  @media screen and (min-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1260px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (min-width: 1920px) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  > li {
+    margin-bottom: 30px;
+  }
 }
 
 .loading {
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
 }
 </style>
