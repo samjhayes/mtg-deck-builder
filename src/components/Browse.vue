@@ -1,6 +1,6 @@
 <template>
   <div class="browse">
-    <BrowseFilters />
+    <BrowseFilters @search-changed="searchChanged" />
     <span class="loading" v-if="!data.length">
       Loading
     </span>
@@ -27,11 +27,12 @@ export default {
     BrowseFilters,
   },
   props: {
-    browseCards: Array,
     data: Array,
+    browseCards: Array,
     deckCards: Array,
     addCardToDeck: Function,
     removeCardFromDeck: Function,
+    updateFilters: Function,
   },
   computed: {
     browse: function() {
@@ -59,6 +60,11 @@ export default {
       return this.sortCardsByName(browse);
     },
   },
+  methods: {
+    searchChanged: function(val) {
+      this.$emit('update-filters', val);
+    },
+  },
 };
 </script>
 
@@ -71,6 +77,8 @@ export default {
   bottom: 0;
   left: 0;
   width: calc(100vw - #{$sidebar-width});
+  display: flex;
+  flex-direction: column;
 }
 
 .browse-cards,
@@ -81,9 +89,12 @@ export default {
   margin: 0;
 }
 
+.browse-cards {
+  overflow-y: auto;
+}
+
 .loading {
   align-items: center;
   justify-content: center;
-  height: 100%;
 }
 </style>

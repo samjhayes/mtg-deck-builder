@@ -6,6 +6,7 @@
       :deck-cards="deckCards"
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
+      @update-filters="updateFilters"
     />
     <Deck
       :data="data"
@@ -60,19 +61,27 @@ export default {
         }
       }
     },
-    setBrowseCards: function(browseCards) {
-      this.browseCards = browseCards;
-    },
     setMode: function(mode) {
       this.mode = mode;
+    },
+    updateFilters: function(search) {
+      if (search) {
+        let results = this.data.filter(card => {
+          return card.name.toLowerCase().startsWith(search);
+        });
+        results = results.slice(0, 100);
+        this.browseCards = results.map(card => card.id);
+      } else {
+        this.browseCards = [];
+      }
     },
   },
   data() {
     return {
-      browseCards: ['86bf43b1-8d4e-4759-bb2d-0b2e03ba7012', '7002a87b-a55f-42ec-b247-119a3229129f', '57ebd34e-dfe1-4093-a302-db395047a546'],
+      data: [],
+      browseCards: [],
       deckCards: [],
       mode: 'main',
-      data: [],
     };
   },
 };

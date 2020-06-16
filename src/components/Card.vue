@@ -6,20 +6,20 @@
     <span class="card-subtypes" v-if="subtypes">
       {{ subtypes }}
     </span>
-    <span class="card-text" v-if="card.oracle_text">
-      {{ card.oracle_text }}
+    <span class="card-text" v-if="card.text">
+      {{ card.text }}
     </span> -->
   </div>
 </template>
 
 <script>
-import ManaCost from './ManaCost.vue';
+// import ManaCost from './ManaCost.vue';
 
 export default {
   name: 'Card',
-  components: {
-    ManaCost,
-  },
+  // components: {
+  //   ManaCost,
+  // },
   props: {
     card: Object,
   },
@@ -48,6 +48,7 @@ export default {
 .card {
   width: 63px * 4;
   height: 88px * 4;
+  border-radius: 14px;
   background-color: darkgray;
   background-size: contain;
   background-position: center;

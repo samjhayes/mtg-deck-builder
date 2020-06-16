@@ -28,6 +28,17 @@ Vue.mixin({
       }
       return [];
     },
+    debounce: (fn, delay) => {
+      let timeout = null;
+      return function() {
+        clearTimeout(timeout);
+        const args = arguments;
+        const that = this;
+        timeout = setTimeout(function() {
+          fn.apply(that, args);
+        }, delay);
+      };
+    },
   },
 });
 

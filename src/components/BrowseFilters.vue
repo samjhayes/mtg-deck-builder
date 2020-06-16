@@ -1,6 +1,6 @@
 <template>
   <nav class="browse-filters">
-    <input placeholder="Search for a card" />
+    <input v-model="search" placeholder="Search for a card" />
     <div class="browse-filters-mana-color">
       <button v-for="(manaColor, index) in manaColorFilters" :key="index">
         <Mana :mana="manaColor" />
@@ -15,13 +15,33 @@
 <script>
 import Mana from './Mana.vue';
 
+const SEARCH_DEBOUNCE_MS = 250;
+
 export default {
   name: 'BrowseFilters',
   components: {
     Mana,
   },
+  data: function() {
+    return {
+      debouncedSearch: '',
+      timeout: null,
+    };
+  },
   computed: {
     manaColorFilters: () => ['W', 'U', 'B', 'R', 'G', 'X'],
+    search: {
+      get() {
+        return this.debouncedSearch;
+      },
+      set(val) {
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          this.debouncedSearch = val;
+          this.$emit('search-changed', this.debouncedSearch);
+        }, SEARCH_DEBOUNCE_MS);
+      },
+    },
   },
 };
 </script>

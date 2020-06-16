@@ -1,20 +1,20 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
+const oracleJsonPath = './src/assets/oracle.json';
+const oracleMinJsonPath = './src/assets/oracle.min.json';
+
 function scryfall(cb) {
   const endpoint = 'https://api.scryfall.com/bulk-data';
-
   fetch(endpoint)
     .then(response => response.json())
     .then(response => {
       const { data } = response;
-
-      const bulkOracleCards = data.find(
+      const bulkOracle = data.find(
         bulkData => bulkData.type === 'oracle_cards'
       );
-
-      if (bulkOracleCards && bulkOracleCards.download_uri) {
-        scryfallOracleCards(bulkOracleCards.download_uri, cb);
+      if (bulkOracle && bulkOracle.download_uri) {
+        scryfallOracle(bulkOracle.download_uri, cb);
       }
     })
     .catch(error => {
@@ -23,15 +23,14 @@ function scryfall(cb) {
     });
 }
 
-function scryfallOracleCards(uri, cb) {
+function scryfallOracle(uri, cb) {
   fetch(uri)
     .then(response => response.json())
     .then(response => {
-      fs.writeFileSync(
-        './src/assets/oracle.json',
-        JSON.stringify(response, null, 2)
-      );
-      remapCards(response, cb);
+      const json = JSON.stringify(response, null, 2);
+      const remapped = remapOracle(response);
+      fs.writeFileSync(oracleJsonPath, json);
+      fs.writeFileSync(oracleMinJsonPath, remapped);
       cb();
     })
     .catch(error => {
@@ -40,18 +39,31 @@ function scryfallOracleCards(uri, cb) {
     });
 }
 
-function remapCards(data, cb) {
-  let cards = data.filter(card => card.image_uris !== undefined);
-  cards = cards.map(card => ({
-    id: card.id,
+function remapOracle(json) {
+  const cards = json.filter(card => card.image_uris !== undefined);
+  const remapped = cards.map(card => ({
+    id: card.oracle_id,
     name: card.name,
     mana_cost: card.mana_cost,
     type_line: card.type_line,
-    oracle_text: card.oracle_text,
+    text: card.oracle_text,
     image: card.image_uris.normal,
   }));
-  fs.writeFileSync('./src/assets/oracle.min.json', JSON.stringify(cards));
-  cb();
+  return JSON.stringify(remapped);
+}
+
+function remap(cb) {
+  fs.readFile(oracleJsonPath, function(error, data) {
+    if (!error) {
+      const json = JSON.parse(data.toString());
+      const remapped = remapOracle(json);
+      fs.writeFileSync(oracleMinJsonPath, remapped);
+    } else {
+      console.error(error);
+    }
+    cb();
+  });
 }
 
 exports.default = scryfall;
+exports.remap = remap;

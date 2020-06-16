@@ -45,6 +45,7 @@ export default {
   &-button {
     padding: 0;
     border: none;
+    background-color: transparent;
   }
 }
 </style>
