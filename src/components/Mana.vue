@@ -1,5 +1,5 @@
 <template>
-  <span class="mana">
+  <span class="mana" :data-color="mana">
     {{ mana }}
   </span>
 </template>
@@ -14,17 +14,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$mana_size: 25px;
+@import '../_variables.scss';
 
 .mana {
-  background: black;
-  color: white;
+  background: $colorless;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: $mana_size;
-  height: $mana_size;
+  width: $mana-size;
+  height: $mana-size;
   font-size: 11px;
+
+  &[data-color='W'] {
+    background-color: $white;
+  }
+
+  &[data-color='U'] {
+    background-color: $blue;
+  }
+
+  &[data-color='B'] {
+    background-color: $black;
+  }
+
+  &[data-color='R'] {
+    background-color: $red;
+  }
+
+  &[data-color='G'] {
+    background-color: $green;
+  }
 }
 </style>

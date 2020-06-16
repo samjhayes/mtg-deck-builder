@@ -21,8 +21,9 @@ export default {
 <style lang="scss" scoped>
 .mana-cost {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
+  overflow: hidden;
 
   .mana {
     margin: 1px;

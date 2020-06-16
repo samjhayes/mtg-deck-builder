@@ -33,7 +33,7 @@ export default {
 .deck-card {
   margin-bottom: 5px;
   display: flex;
-  height: 40px;
+  min-height: 40px;
   background-color: white;
 
   &:last-of-type {
@@ -57,6 +57,11 @@ export default {
     align-items: center;
     justify-content: space-between;
     flex-grow: 1;
+    overflow: hidden;
+  }
+
+  &-name {
+    margin-right: 10px;
   }
 }
 </style>

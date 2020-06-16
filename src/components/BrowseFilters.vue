@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .browse-filters {
-  background: gray;
+  background: black;
   padding: 10px;
   display: flex;
 
@@ -64,9 +64,8 @@ export default {
     margin-left: 5px;
 
     .mana[data-active='true'] {
-      background: white;
-      color: black;
       font-weight: bold;
+      border: 2px solid white;
     }
   }
 

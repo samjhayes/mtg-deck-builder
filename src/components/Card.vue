@@ -1,6 +1,7 @@
 <template>
   <div
     class="card"
+    :title="card.name"
     :data-colors="colors"
     :style="`background-image:url(${card.img})`"
   ></div>
