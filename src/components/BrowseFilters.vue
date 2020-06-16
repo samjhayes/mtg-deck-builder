@@ -3,10 +3,10 @@
     <input v-model="search" placeholder="Search for a card" />
     <div class="browse-filters-mana-color">
       <button v-for="(manaColor, index) in manaColorFilters" :key="index">
-        <Mana :mana="manaColor" />
+        <Mana :mana="manaColor" :size="35" />
       </button>
       <button>
-        <Mana mana="A" data-active="true" />
+        <Mana mana="A" :size="35" data-active="true" />
       </button>
     </div>
   </nav>
@@ -65,6 +65,7 @@ export default {
 
     .mana[data-active='true'] {
       font-weight: bold;
+      color: white;
       border: 2px solid white;
     }
   }

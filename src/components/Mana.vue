@@ -1,5 +1,5 @@
 <template>
-  <span class="mana" :data-color="mana">
+  <span class="mana" :data-color="mana" :style="style">
     {{ mana }}
   </span>
 </template>
@@ -9,6 +9,15 @@ export default {
   name: 'Mana',
   props: {
     mana: String,
+    size: Number,
+  },
+  computed: {
+    style: function() {
+      return {
+        width: `${this.size}px`,
+        height: `${this.size}px`,
+      };
+    },
   },
 };
 </script>
@@ -23,9 +32,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: $mana-size;
-  height: $mana-size;
-  font-size: 11px;
+  font-size: 12px;
 
   &[data-color='W'] {
     background-color: $white;

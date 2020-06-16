@@ -1,6 +1,11 @@
 <template>
   <div class="mana-cost">
-    <Mana v-for="(mana, index) in manaCost" :mana="mana" :key="index" />
+    <Mana
+      v-for="(mana, index) in manaCost"
+      :mana="mana"
+      :size="25"
+      :key="index"
+    />
   </div>
 </template>
 
