@@ -8,7 +8,7 @@
       @click.prevent="removeCardFromDeck(card.id)"
     >
       <span class="deck-card-name">{{ card.name }}</span>
-      <ManaCost :manaCost="manaCost" />
+      <ManaCost :manaCost="card.mc" />
     </button>
   </li>
 </template>
@@ -25,11 +25,6 @@ export default {
     card: Object,
     addCardToDeck: Function,
     removeCardFromDeck: Function,
-  },
-  computed: {
-    manaCost: function() {
-      return this.processManaCost(this.card.mana_cost);
-    },
   },
 };
 </script>

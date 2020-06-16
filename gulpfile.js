@@ -39,16 +39,28 @@ function scryfallOracle(uri, cb) {
     });
 }
 
+function manaCostToArray(manaCost) {
+  if (manaCost) {
+    const manaCostArr = manaCost
+      .trim()
+      .slice(1, manaCost.length - 1)
+      .split('}{');
+    return manaCostArr;
+  }
+  return [];
+}
+
 function remapOracle(json) {
   const cards = json.filter(card => card.image_uris !== undefined);
   const remapped = cards.map(card => ({
     id: card.oracle_id,
     name: card.name,
-    mana: card.mana_cost,
+    mc: manaCostToArray(card.mana_cost),
     cmc: card.cmc,
+    col: card.colors,
     type: card.type_line,
-    keywords: card.keywords,
-    image: card.image_uris.normal,
+    kw: card.keywords,
+    img: card.image_uris.normal,
   }));
   return JSON.stringify(remapped);
 }
