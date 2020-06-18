@@ -53,7 +53,7 @@ export default {
         if (this.searchTimeout) clearTimeout(this.searchTimeout);
         this.searchTimeout = setTimeout(() => {
           this.filters.search = val;
-          this.$emit('filter-changed', this.filters);
+          this.$emit('update-filters', this.filters);
         }, SEARCH_DEBOUNCE_MS);
       },
     },
@@ -61,7 +61,7 @@ export default {
   methods: {
     colorFilter: function(filter) {
       filter.active = !filter.active;
-      this.$emit('filter-changed', this.filters);
+      this.$emit('update-filters', this.filters);
     },
   },
 };

@@ -4,8 +4,8 @@
       v-for="card in sortedDeck"
       :card="card"
       :key="card.id"
-      :add-card-to-deck="addCardToDeck"
-      :remove-card-from-deck="removeCardFromDeck"
+      @add-card-to-deck="$emit('add-card-to-deck', $event)"
+      @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
     />
   </ol>
 </template>
@@ -20,8 +20,6 @@ export default {
   },
   props: {
     deck: Array,
-    addCardToDeck: Function,
-    removeCardFromDeck: Function,
   },
   computed: {
     sortedDeck: function() {

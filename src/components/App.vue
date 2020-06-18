@@ -4,17 +4,17 @@
       :data="data"
       :browse-cards="browseCards"
       :deck-cards="deckCards"
-      :add-card-to-deck="addCardToDeck"
-      :remove-card-from-deck="removeCardFromDeck"
+      @add-card-to-deck="addCardToDeck"
+      @remove-card-from-deck="removeCardFromDeck"
       @update-filters="updateFilters"
     />
     <Deck
       :data="data"
       :deckCards="deckCards"
       :mode="mode"
-      :add-card-to-deck="addCardToDeck"
-      :remove-card-from-deck="removeCardFromDeck"
-      :set-mode="setMode"
+      @add-card-to-deck="addCardToDeck"
+      @remove-card-from-deck="removeCardFromDeck"
+      @set-mode="setMode"
     />
   </main>
 </template>

@@ -3,8 +3,8 @@
     <div class="browse-card-count">x{{ count }}</div>
     <button
       class="browse-card-button"
-      @click.prevent="addCardToDeck(card.id)"
-      @contextmenu.prevent="removeCardFromDeck(card.id)"
+      @click.prevent="$emit('add-card-to-deck', card.id)"
+      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       <Card :card="card" />
     </button>
@@ -21,8 +21,6 @@ export default {
   },
   props: {
     card: Object,
-    addCardToDeck: Function,
-    removeCardFromDeck: Function,
   },
   computed: {
     count: function() {

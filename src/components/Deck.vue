@@ -5,12 +5,12 @@
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
       :mode="mode"
-      :set-mode="setMode"
+      @set-mode="$emit('set-mode', $event)"
     />
     <DeckList
       :deck="activeDeck"
-      :add-card-to-deck="addCardToDeck"
-      :remove-card-from-deck="removeCardFromDeck"
+      @add-card-to-deck="$emit('add-card-to-deck', $event)"
+      @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
     />
     <DeckStats :deck="activeDeck" />
   </div>
@@ -34,9 +34,6 @@ export default {
     data: Array,
     deckCards: Array,
     mode: String,
-    addCardToDeck: Function,
-    removeCardFromDeck: Function,
-    setMode: Function,
   },
   computed: {
     deck: function() {

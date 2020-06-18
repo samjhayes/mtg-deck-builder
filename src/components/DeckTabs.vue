@@ -2,15 +2,15 @@
   <div class="deck-tabs">
     <button
       class="deck-tabs-button"
-      @click.prevent="setMode('main')"
       :data-active="mainActive"
+      @click.prevent="$emit('set-mode', 'main')"
     >
       Main <span class="deck-tabs-count">({{ mainCount }})</span>
     </button>
     <button
       class="deck-tabs-button"
-      @click.prevent="setMode('sideboard')"
       :data-active="sideboardActive"
+      @click.prevent="$emit('set-mode', 'sideboard')"
     >
       Sideboard <span class="deck-tabs-count">({{ sideboardCount }})</span>
     </button>

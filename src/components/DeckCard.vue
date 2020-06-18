@@ -1,11 +1,16 @@
 <template>
   <li class="deck-card" :data-colors="card.col.join(' ')">
-    <button class="deck-card-count" @click.prevent="addCardToDeck(card.id)">
+    <button
+      class="deck-card-count"
+      @click.prevent="$emit('add-card-to-deck', card.id)"
+      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
+    >
       x{{ card.count }}
     </button>
     <button
       class="deck-card-details"
-      @click.prevent="removeCardFromDeck(card.id)"
+      @click.prevent="$emit('remove-card-from-deck', card.id)"
+      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       <span class="deck-card-name">{{ card.name }}</span>
       <ManaCost :manaCost="card.mc" />
@@ -23,8 +28,6 @@ export default {
   },
   props: {
     card: Object,
-    addCardToDeck: Function,
-    removeCardFromDeck: Function,
   },
 };
 </script>

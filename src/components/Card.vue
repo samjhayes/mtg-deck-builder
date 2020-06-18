@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="card"
-    :title="card.name"
-    :data-colors="card.col.join(' ')"
-    :style="`background-image:url(${card.img})`"
-  ></div>
+  <div class="card" :title="card.name" :data-colors="card.col.join(' ')"></div>
 </template>
 
 <script>
