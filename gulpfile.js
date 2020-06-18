@@ -69,7 +69,7 @@ function remapOracle(json) {
     name: card.name,
     mc: manaCostToArray(card.mana_cost),
     cmc: card.cmc,
-    col: colorsToLowerCase(card.colors),
+    col: colorsToLowerCase(card.color_identity),
     type: card.type_line,
     kw: card.keywords,
     img: card.image_uris.normal,

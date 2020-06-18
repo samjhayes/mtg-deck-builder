@@ -80,7 +80,7 @@ export default {
 
   input {
     margin-right: 20px;
-    width: 400px;
+    width: $sidebar-width;
   }
 
   button {
