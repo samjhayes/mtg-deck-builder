@@ -2,15 +2,16 @@
   <div class="mana-cost">
     <Mana
       v-for="(mana, index) in manaCost"
-      :mana="mana"
-      :size="25"
       :key="index"
+      :symbol="mana"
+      shadow
+      size="1x"
     />
   </div>
 </template>
 
 <script>
-import Mana from './Mana.vue';
+import { Mana } from '@saeris/vue-mana';
 
 export default {
   name: 'ManaCost',
@@ -29,8 +30,9 @@ export default {
   justify-content: flex-end;
   flex-wrap: wrap;
   overflow: hidden;
+  padding: 1px;
 
-  .mana {
+  > * {
     margin: 1px;
 
     &:first-of-type {

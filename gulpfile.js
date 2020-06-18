@@ -43,11 +43,20 @@ function manaCostToArray(manaCost) {
   if (manaCost) {
     const manaCostArr = manaCost
       .trim()
+      .toLowerCase()
       .slice(1, manaCost.length - 1)
       .split('}{');
     return manaCostArr;
   }
   return [];
+}
+
+function colorsToLowerCase(colors) {
+  const lower = [];
+  for (let index = 0; index < colors.length; index++) {
+    lower[index] = colors[index].toLowerCase();
+  }
+  return lower;
 }
 
 function remapOracle(json) {
@@ -57,7 +66,7 @@ function remapOracle(json) {
     name: card.name,
     mc: manaCostToArray(card.mana_cost),
     cmc: card.cmc,
-    col: card.colors,
+    col: colorsToLowerCase(card.colors),
     type: card.type_line,
     kw: card.keywords,
     img: card.image_uris.normal,

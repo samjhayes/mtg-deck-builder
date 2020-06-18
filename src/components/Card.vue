@@ -2,7 +2,7 @@
   <div
     class="card"
     :title="card.name"
-    :data-colors="colors"
+    :data-colors="card.col.join(' ')"
     :style="`background-image:url(${card.img})`"
   ></div>
 </template>
@@ -13,15 +13,15 @@ export default {
   props: {
     card: Object,
   },
-  computed: {
-    colors: function() {
-      if (this.card.col) {
-        const colors = [...this.card.col];
-        return colors.sort().join(' ');
-      }
-      return '';
-    },
-  },
+  // computed: {
+  //   colors: function() {
+  //     if (this.card.col) {
+  //       const colors = [...this.card.col];
+  //       return colors.sort().join(' ');
+  //     }
+  //     return '';
+  //   },
+  // },
 };
 </script>
 
@@ -46,24 +46,10 @@ export default {
     background-color: $colorless;
   }
 
-  &[data-colors='W'] {
-    background-color: $white;
-  }
-
-  &[data-colors='U'] {
-    background-color: $blue;
-  }
-
-  &[data-colors='B'] {
-    background-color: $black;
-  }
-
-  &[data-colors='R'] {
-    background-color: $red;
-  }
-
-  &[data-colors='G'] {
-    background-color: $green;
+  @each $key, $val in $colors {
+    &[data-colors='#{$key}'] {
+      background-color: $val;
+    }
   }
 }
 </style>

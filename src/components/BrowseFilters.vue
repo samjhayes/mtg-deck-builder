@@ -2,18 +2,15 @@
   <nav class="browse-filters">
     <input v-model="search" placeholder="Search for a card" />
     <div class="browse-filters-mana-color">
-      <button v-for="(manaColor, index) in manaColorFilters" :key="index">
-        <Mana :mana="manaColor" :size="35" />
-      </button>
-      <button>
-        <Mana mana="A" :size="35" data-active="true" />
+      <button v-for="(color, index) in manaColorFilters" :key="index">
+        <Mana :symbol="color" shadow size="2x" />
       </button>
     </div>
   </nav>
 </template>
 
 <script>
-import Mana from './Mana.vue';
+import { Mana } from '@saeris/vue-mana';
 
 const SEARCH_DEBOUNCE_MS = 250;
 
@@ -29,7 +26,7 @@ export default {
     };
   },
   computed: {
-    manaColorFilters: () => ['W', 'U', 'B', 'R', 'G', 'X'],
+    manaColorFilters: () => ['w', 'u', 'b', 'r', 'g'],
     search: {
       get() {
         return this.debouncedSearch;
@@ -48,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .browse-filters {
-  background: black;
+  background: gray;
   padding: 10px;
   display: flex;
 

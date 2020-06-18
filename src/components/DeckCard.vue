@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card">
+  <li class="deck-card" :data-colors="card.col.join(' ')">
     <button class="deck-card-count" @click.prevent="addCardToDeck(card.id)">
       x{{ card.count }}
     </button>
@@ -30,11 +30,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .deck-card {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   display: flex;
   min-height: 40px;
-  background-color: white;
+
+  &[data-colors] {
+    background-color: $multicolor;
+  }
+
+  &[data-colors=''] {
+    background-color: $colorless;
+  }
+
+  @each $key, $val in $colors {
+    &[data-colors='#{$key}'] {
+      background-color: $val;
+    }
+  }
 
   &:last-of-type {
     margin-bottom: 0;
@@ -49,7 +64,7 @@ export default {
   &-count {
     background: black;
     color: white;
-    min-width: 50px;
+    min-width: 40px;
   }
 
   &-details {

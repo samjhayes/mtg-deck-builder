@@ -2,10 +2,13 @@ $sidebar-width: 350px;
 $min-input-size: 40px;
 $mana-size: 25px;
 
-$white: #ebe198;
-$blue: #aae1fa;
-$black: #b498ce;
-$red: #f9aa8f;
-$green: #9ad3ae;
-$multicolor: #c09539;
-$colorless: #bdb1af;
+$multicolor: #dcbb76;
+$colorless: #c9d1d6;
+
+$colors: (
+  'w': #e1ded6,
+  'u': #7fb5d1,
+  'b': #a29d98,
+  'r': #f9aa8f,
+  'g': #aac9b9,
+);

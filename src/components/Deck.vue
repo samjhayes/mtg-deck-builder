@@ -12,7 +12,7 @@
       :add-card-to-deck="addCardToDeck"
       :remove-card-from-deck="removeCardFromDeck"
     />
-    <DeckStats />
+    <DeckStats :deck="activeDeck" />
   </div>
 </template>
 

@@ -90,6 +90,9 @@ export default {
 <style lang="scss">
 @import '../_variables.scss';
 
+$ms-font-path: '~mana-font/fonts';
+@import 'mana-font/sass/mana';
+
 * {
   box-sizing: border-box;
 }
@@ -99,7 +102,8 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style: none;
