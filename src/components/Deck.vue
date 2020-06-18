@@ -73,6 +73,8 @@ export default {
   right: 0;
   bottom: 0;
   width: $sidebar-width;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
 }
 </style>

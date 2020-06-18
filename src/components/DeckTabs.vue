@@ -53,7 +53,7 @@ export default {
 @import '../_variables.scss';
 
 .deck-tabs {
-  margin: 0;
+  margin: 10px 0;
   display: flex;
 
   &-button {

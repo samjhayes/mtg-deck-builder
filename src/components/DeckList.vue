@@ -32,6 +32,6 @@ export default {
 
 <style lang="scss" scoped>
 .deck-list {
-  margin: 10px 0;
+  overflow-y: auto;
 }
 </style>
