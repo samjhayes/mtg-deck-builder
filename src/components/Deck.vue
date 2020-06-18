@@ -39,15 +39,12 @@ export default {
     deck: function() {
       const mainCards = [];
       const sideboardCards = [];
-      this.deckCards.forEach(obj => {
-        const cardData = this.getCardDataById(this.data, obj.id);
-        if (cardData) {
-          if (obj.mainCount) {
-            mainCards.push({ ...cardData, count: obj.mainCount });
-          }
-          if (obj.sideboardCount) {
-            sideboardCards.push({ ...cardData, count: obj.sideboardCount });
-          }
+      this.deckCards.forEach(card => {
+        if (card.mainCount) {
+          mainCards.push({ ...card, count: card.mainCount });
+        }
+        if (card.sideboardCount) {
+          sideboardCards.push({ ...card, count: card.sideboardCount });
         }
       });
       return {

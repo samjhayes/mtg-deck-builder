@@ -6,7 +6,7 @@
     </span>
     <ol class="browse-cards" v-else>
       <BrowseCard
-        v-for="card in browse"
+        v-for="card in browseCards"
         :key="card.id"
         :card="card"
         @add-card-to-deck="$emit('add-card-to-deck', card.id)"
@@ -30,28 +30,6 @@ export default {
     data: Array,
     browseCards: Array,
     deckCards: Array,
-  },
-  computed: {
-    browse: function() {
-      const cards = [];
-      this.browseCards.forEach(cardId => {
-        const cardData = this.getCardDataById(this.data, cardId);
-        if (cardData) {
-          const card = { ...cardData, mainCount: 0, sideboardCount: 0 };
-          const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
-          if (cardInDeck) {
-            if (cardInDeck.mainCount) {
-              card.mainCount = cardInDeck.mainCount;
-            }
-            if (cardInDeck.sideboardCount) {
-              card.sideboardCount = cardInDeck.sideboardCount;
-            }
-          }
-          cards.push(card);
-        }
-      });
-      return cards;
-    },
   },
 };
 </script>

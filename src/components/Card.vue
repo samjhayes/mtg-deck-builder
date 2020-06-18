@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="card"
-    :title="card.name"
-    :data-colors="card.col.join(' ')"
-    :style="style"
-  ></div>
+  <div class="card" :title="card.name" :style="style"></div>
 </template>
 
 <script>
@@ -38,19 +33,6 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-
-  &[data-colors] {
-    background-color: $multicolor;
-  }
-
-  &[data-colors=''] {
-    background-color: $colorless;
-  }
-
-  @each $key, $val in $colors {
-    &[data-colors='#{$key}'] {
-      background-color: $val;
-    }
-  }
+  background-color: $colorless;
 }
 </style>

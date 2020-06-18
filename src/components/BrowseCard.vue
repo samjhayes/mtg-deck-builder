@@ -1,6 +1,6 @@
 <template>
   <li class="browse-card">
-    <div class="browse-card-count">x{{ count }}</div>
+    <div class="browse-card-count">x{{ card.count }}</div>
     <button
       class="browse-card-button"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -27,11 +27,6 @@ export default {
       showImage: false,
       observer: null,
     };
-  },
-  computed: {
-    count: function() {
-      return parseInt(this.card.mainCount) + parseInt(this.card.sideboardCount);
-    },
   },
   methods: {
     handleIntersection: function(entries) {

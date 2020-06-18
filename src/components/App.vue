@@ -23,7 +23,7 @@
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 
-const MAX_BROWSE_CARDS = 32;
+const MAX_BROWSE_CARDS = 100;
 
 export default {
   name: 'App',
@@ -31,27 +31,38 @@ export default {
     Browse,
     Deck,
   },
-  mounted: async function() {
-    const data = await import(/* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json');
-    this.data = this.sortCardsByName(data.default);
+  data() {
+    return {
+      data: [],
+      browseCards: [],
+      deckCards: [],
+      mode: 'main',
+    };
   },
   methods: {
-    addCardToDeck: function(cardId) {
-      const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
+    addCardToDeck: function(id) {
+      let cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
         cardInDeck[`${this.mode}Count`] += 1;
       } else {
-        const card = {
-          id: cardId,
-          mainCount: 0,
-          sideboardCount: 0,
-        };
-        card[`${this.mode}Count`] += 1;
-        this.deckCards.push(card);
+        const card = this.getCardDataById(this.data, id);
+        if (card) {
+          cardInDeck = {
+            id: id,
+            name: card.name,
+            mc: card.mc,
+            col: card.col,
+            type: card.type,
+            mainCount: 0,
+            sideboardCount: 0,
+          };
+          cardInDeck[`${this.mode}Count`] += 1;
+          this.deckCards.push(cardInDeck);
+        }
       }
     },
-    removeCardFromDeck: function(cardId) {
-      const cardInDeck = this.deckCards.find(obj => obj.id === cardId);
+    removeCardFromDeck: function(id) {
+      const cardInDeck = this.deckCards.find(obj => obj.id === id);
       if (cardInDeck) {
         if (cardInDeck[`${this.mode}Count`] > 0) {
           cardInDeck[`${this.mode}Count`] -= 1;
@@ -66,22 +77,27 @@ export default {
     setMode: function(mode) {
       this.mode = mode;
     },
+    setBrowseCards: function(cards) {
+      this.browseCards = cards.map(function(card) {
+        return { id: card.id, img: card.img, count: 0 };
+      });
+    },
     updateFilters: function(filters) {
       const { search, color } = filters;
       if (search) {
         let results = this.data.filter(card => {
-          return card.name.toLowerCase().startsWith(search.toLowerCase());
+          return card.name.toLowerCase().includes(search.toLowerCase());
         });
 
         results = results.sort();
 
-        let activeColors = color.filter(color => color.active)
+        let activeColors = color.filter(color => color.active);
         activeColors = activeColors.map(color => color.symbol);
         if (activeColors.length) {
           results = results.filter(card => {
             const cardColors = card.col.length ? card.col : ['c'];
             let matchingColorsCount = 0;
-            for (let i = 0; i < cardColors.length; i +=1) {
+            for (let i = 0; i < cardColors.length; i += 1) {
               const color = cardColors[i];
               if (activeColors.includes(color)) {
                 matchingColorsCount += 1;
@@ -92,19 +108,17 @@ export default {
         }
 
         results = results.slice(0, MAX_BROWSE_CARDS);
-        this.browseCards = results.map(card => card.id);
+        this.setBrowseCards(results);
       } else {
         this.browseCards = [];
       }
     },
   },
-  data() {
-    return {
-      data: [],
-      browseCards: [],
-      deckCards: [],
-      mode: 'main',
-    };
+  mounted: async function() {
+    const data = await import(
+      /* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json'
+    );
+    this.data = this.sortCardsByName(data.default);
   },
 };
 </script>

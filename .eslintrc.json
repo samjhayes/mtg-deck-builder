@@ -10,8 +10,7 @@
     "plugin:vue/essential"
   ],
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "allowImportExportEverywhere": true
+    "ecmaVersion": 11
   },
   "plugins": ["vue"],
   "rules": {}
