@@ -58,7 +58,7 @@ export default {
   &-count,
   &-details {
     padding: 5px 10px;
-    border: 1px solid black;
+    border: 2px solid black;
   }
 
   &-count {

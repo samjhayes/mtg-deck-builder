@@ -67,7 +67,7 @@ export default {
     updateFilters: function(search) {
       if (search) {
         let results = this.data.filter(card => {
-          return card.name.toLowerCase().startsWith(search);
+          return card.name.toLowerCase().startsWith(search.toLowerCase());
         });
         results = results.slice(0, 32);
         this.browseCards = results.map(card => card.id);

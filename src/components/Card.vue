@@ -13,15 +13,6 @@ export default {
   props: {
     card: Object,
   },
-  // computed: {
-  //   colors: function() {
-  //     if (this.card.col) {
-  //       const colors = [...this.card.col];
-  //       return colors.sort().join(' ');
-  //     }
-  //     return '';
-  //   },
-  // },
 };
 </script>
 

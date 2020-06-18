@@ -1,9 +1,10 @@
 <template>
   <div class="mana-cost">
     <Mana
-      v-for="(mana, index) in manaCost"
+      v-for="(mana, index) in processed"
       :key="index"
-      :symbol="mana"
+      :symbol="mana.symbol"
+      :half="mana.half"
       shadow
       size="1x"
     />
@@ -20,6 +21,23 @@ export default {
   },
   props: {
     manaCost: Array,
+  },
+  computed: {
+    processed: function() {
+      const processed = [];
+      this.manaCost.forEach(mana => {
+        const processedMana = {
+          symbol: mana,
+          half: false,
+        };
+        if (mana.slice(0, 1) === 'h') {
+          processedMana.half = true;
+          processedMana.symbol = mana.slice(1, 2);
+        }
+        processed.push(processedMana);
+      });
+      return processed;
+    },
   },
 };
 </script>
