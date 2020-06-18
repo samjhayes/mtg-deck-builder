@@ -1,8 +1,14 @@
 <template>
   <li class="browse-card">
-    <div class="browse-card-count">x{{ card.count }}</div>
+    <div class="count">
+      <span
+        class="counter"
+        v-for="(count, index) in card.count"
+        :key="index"
+      ></span>
+    </div>
     <button
-      class="browse-card-button"
+      class="button"
       @click.prevent="$emit('add-card-to-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
@@ -64,11 +70,11 @@ $aspect-ratio: $card-height / $card-width;
 .browse-card {
   text-align: center;
 
-  &-count {
+  .count {
     margin-bottom: 10px;
   }
 
-  &-button {
+  .button {
     position: relative;
     width: 100%;
     height: 0;

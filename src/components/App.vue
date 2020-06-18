@@ -1,9 +1,8 @@
 <template>
   <main id="app">
     <Browse
-      :data="data"
       :browse-cards="browseCards"
-      :deck-cards="deckCards"
+      :is-loaded="isLoaded"
       @add-card-to-deck="addCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @update-filters="updateFilters"
@@ -23,7 +22,7 @@
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 
-const MAX_BROWSE_CARDS = 100;
+const MAX_BROWSE_CARDS = 250;
 
 export default {
   name: 'App',
@@ -38,6 +37,11 @@ export default {
       deckCards: [],
       mode: 'main',
     };
+  },
+  computed: {
+    isLoaded: function() {
+      return this.data.length !== 0;
+    },
   },
   methods: {
     addCardToDeck: function(id) {

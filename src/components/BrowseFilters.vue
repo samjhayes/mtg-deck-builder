@@ -91,7 +91,7 @@ export default {
     border-radius: 50%;
     width: $min-input-size;
     height: $min-input-size;
-    border: 4px solid lighten($darkgray, 15%);
+    border: 4px solid lighten($darkgray, 30%);
 
     &[data-active='true'] {
       border-color: white;

@@ -1,35 +1,31 @@
 <template>
   <div class="browse">
     <BrowseFilters @update-filters="$emit('update-filters', $event)" />
-    <span class="loading" v-if="!data.length">
+    <span class="loading" v-if="!isLoaded">
       Loading
     </span>
-    <ol class="browse-cards" v-else>
-      <BrowseCard
-        v-for="card in browseCards"
-        :key="card.id"
-        :card="card"
-        @add-card-to-deck="$emit('add-card-to-deck', card.id)"
-        @remove-card-from-deck="$emit('remove-card-from-deck', card.id)"
-      />
-    </ol>
+    <BrowseList
+      v-else
+      :browse-cards="browseCards"
+      @add-card-to-deck="$emit('add-card-to-deck', $event)"
+      @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
+    />
   </div>
 </template>
 
 <script>
-import BrowseCard from './BrowseCard.vue';
 import BrowseFilters from './BrowseFilters.vue';
+import BrowseList from './BrowseList.vue';
 
 export default {
   name: 'Browse',
   components: {
-    BrowseCard,
     BrowseFilters,
+    BrowseList,
   },
   props: {
-    data: Array,
     browseCards: Array,
-    deckCards: Array,
+    isLoaded: Boolean,
   },
 };
 </script>
@@ -38,6 +34,7 @@ export default {
 @import '../_variables.scss';
 
 .browse {
+  background: $gray;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -47,35 +44,8 @@ export default {
   flex-direction: column;
 }
 
-.browse-cards,
 .loading {
   padding: 30px;
-}
-
-.browse-cards {
-  display: grid;
-  column-gap: 30px;
-  overflow-y: auto;
-  grid-template-columns: auto;
-
-  @media screen and (min-width: 720px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media screen and (min-width: 1260px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media screen and (min-width: 1920px) {
-    grid-template-columns: repeat(8, 1fr);
-  }
-
-  > li {
-    margin-bottom: 30px;
-  }
-}
-
-.loading {
   display: flex;
   align-items: center;
   justify-content: center;

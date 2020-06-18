@@ -1,14 +1,12 @@
 <template>
   <div class="deck-tabs">
     <button
-      class="deck-tabs-button"
       :data-active="mainActive"
       @click.prevent="$emit('set-mode', 'main')"
     >
       Main <span class="deck-tabs-count">({{ mainCount }})</span>
     </button>
     <button
-      class="deck-tabs-button"
       :data-active="sideboardActive"
       @click.prevent="$emit('set-mode', 'sideboard')"
     >
@@ -56,7 +54,7 @@ export default {
   margin: 10px 0;
   display: flex;
 
-  &-button {
+  button {
     min-height: $min-input-size;
     padding: 10px;
     flex-basis: 0;
@@ -69,6 +67,14 @@ export default {
       background-color: white;
       color: black;
       font-weight: bold;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: 10px;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 10px;
     }
   }
 }
