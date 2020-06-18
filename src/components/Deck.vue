@@ -79,6 +79,6 @@ export default {
   right: 0;
   bottom: 0;
   width: $sidebar-width;
-  padding: 0 10px;
+  padding: 10px;
 }
 </style>

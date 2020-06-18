@@ -61,7 +61,7 @@ export default {
     padding: 10px;
     flex-basis: 0;
     flex-grow: 1;
-    border: 1px solid black;
+    border: 1px solid white;
     background-color: black;
     color: white;
 

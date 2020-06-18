@@ -1,8 +1,8 @@
 <template>
   <div class="deck-actions">
-    <input placeholder="Untitled Deck 1" />
+    <!-- <input placeholder="Untitled Deck 1" />
     <button>Import</button>
-    <button>Export</button>
+    <button>Export</button> -->
   </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
 @import '../_variables.scss';
 
 .deck-actions {
-  margin: 10px 0;
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
 
