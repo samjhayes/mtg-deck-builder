@@ -44,8 +44,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .browse-filters {
-  background: gray;
+  background-color: $darkgray;
   padding: 10px;
   display: flex;
 
@@ -56,7 +58,7 @@ export default {
 
   button {
     padding: 0;
-    background: transparent;
+    background-color: transparent;
     border: none;
     margin-left: 5px;
 

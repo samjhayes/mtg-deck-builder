@@ -26,7 +26,7 @@ export default {
 
   button {
     min-height: $min-input-size;
-    background: lightgray;
+    background-color: lightgray;
     padding: 10px;
   }
 }

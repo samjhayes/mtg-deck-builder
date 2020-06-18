@@ -73,12 +73,12 @@ export default {
 @import '../_variables.scss';
 
 .deck {
+  background-color: $darkgray;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   width: $sidebar-width;
-  background: gray;
   padding: 0 10px;
 }
 </style>

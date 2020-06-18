@@ -62,11 +62,11 @@ export default {
     flex-basis: 0;
     flex-grow: 1;
     border: 1px solid black;
-    background: black;
+    background-color: black;
     color: white;
 
     &[data-active='true'] {
-      background: white;
+      background-color: white;
       color: black;
       font-weight: bold;
     }
