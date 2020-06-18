@@ -61,7 +61,9 @@ function colorsToLowerCase(colors) {
 }
 
 function remapOracle(json) {
-  const cards = json.filter(card => card.image_uris !== undefined);
+  const cards = json.filter(
+    card => card.image_uris !== undefined && card.type_line !== 'Card'
+  );
   const remapped = cards.map(card => ({
     id: card.oracle_id,
     name: card.name,
