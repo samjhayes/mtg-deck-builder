@@ -6,7 +6,7 @@
       @click.prevent="$emit('add-card-to-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
-      <Card :card="card" />
+      <Card :card="card" :show-image="showImage" />
     </button>
   </li>
 </template>
@@ -22,10 +22,40 @@ export default {
   props: {
     card: Object,
   },
+  data: function() {
+    return {
+      showImage: false,
+      observer: null,
+    };
+  },
   computed: {
     count: function() {
       return parseInt(this.card.mainCount) + parseInt(this.card.sideboardCount);
     },
+  },
+  methods: {
+    handleIntersection: function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.showImage = true;
+          this.observer.disconnect();
+          this.observer = null;
+        }
+      });
+    },
+  },
+  mounted: function() {
+    if (window['IntersectionObserver']) {
+      this.observer = new IntersectionObserver(this.handleIntersection);
+      this.observer.observe(this.$el);
+    } else {
+      this.showImage = true;
+    }
+  },
+  destroyed: function() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   },
 };
 </script>

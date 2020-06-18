@@ -7,11 +7,10 @@
     <ol class="browse-cards" v-else>
       <BrowseCard
         v-for="card in browse"
-        :card="card"
         :key="card.id"
+        :card="card"
         @add-card-to-deck="$emit('add-card-to-deck', card.id)"
         @remove-card-from-deck="$emit('remove-card-from-deck', card.id)"
-        @register-with-observer="registerWithObserver"
       />
     </ol>
   </div>
@@ -31,11 +30,6 @@ export default {
     data: Array,
     browseCards: Array,
     deckCards: Array,
-  },
-  data: function() {
-    return {
-      observer: null,
-    };
   },
   computed: {
     browse: function() {
@@ -58,23 +52,6 @@ export default {
       });
       return cards;
     },
-  },
-  methods: {
-    registerWithObserver: function(element) {
-      console.log(element);
-    },
-    handleIntersect: function(element) {
-      console.log(element);
-    },
-  },
-  mounted: function() {
-    if (window['IntersectionObserver']) {
-      const options = {
-        root: null,
-        threshold: '0',
-      };
-      this.observer = new IntersectionObserver(this.handleIntersect, options);
-    }
   },
 };
 </script>

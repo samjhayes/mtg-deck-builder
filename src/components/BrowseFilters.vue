@@ -64,6 +64,9 @@ export default {
       this.$emit('update-filters', this.filters);
     },
   },
+  beforeDestroy: function() {
+    clearTimeout(this.searchTimeout);
+  },
 };
 </script>
 

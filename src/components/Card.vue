@@ -1,5 +1,10 @@
 <template>
-  <div class="card" :title="card.name" :data-colors="card.col.join(' ')"></div>
+  <div
+    class="card"
+    :title="card.name"
+    :data-colors="card.col.join(' ')"
+    :style="style"
+  ></div>
 </template>
 
 <script>
@@ -7,6 +12,16 @@ export default {
   name: 'Card',
   props: {
     card: Object,
+    showImage: Boolean,
+  },
+  computed: {
+    style: function() {
+      const style = {};
+      if (this.showImage) {
+        style.backgroundImage = `url(${this.card.img})`;
+      }
+      return style;
+    },
   },
 };
 </script>
