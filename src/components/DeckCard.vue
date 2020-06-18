@@ -12,22 +12,32 @@
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
+      <span class="type">
+        <Mana v-if="type" :symbol="type" fixed />
+      </span>
       <span class="name">{{ card.name }}</span>
-      <ManaCost :manaCost="card.mc" />
+      <ManaCost class="mana-cost" :manaCost="card.mc" />
     </button>
   </li>
 </template>
 
 <script>
+import { Mana } from '@saeris/vue-mana';
 import ManaCost from './ManaCost.vue';
 
 export default {
   name: 'DeckCard',
   components: {
+    Mana,
     ManaCost,
   },
   props: {
     card: Object,
+  },
+  computed: {
+    type: function() {
+      return this.getTypeFromTypeLine(this.card.type);
+    },
   },
 };
 </script>
@@ -39,6 +49,10 @@ export default {
   .details {
     background-color: lighten($color, 5%);
     border-color: darken($color, 20%);
+
+    .type {
+      color: darken($color, 35%);
+    }
   }
 }
 
@@ -86,11 +100,22 @@ export default {
     overflow: hidden;
     border: 4px solid $colorless;
     border-top-right-radius: 10px;
+    padding-left: 0;
+  }
+
+  .type {
+    width: 15px;
+    margin: 0 10px;
+    font-size: 15px;
   }
 
   .name {
     margin-right: 10px;
     text-align: left;
+  }
+
+  .mana-cost {
+    flex-grow: 1;
   }
 }
 </style>
