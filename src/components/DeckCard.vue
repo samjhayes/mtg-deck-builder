@@ -1,18 +1,18 @@
 <template>
   <li class="deck-card" :data-colors="card.col.join(' ')">
     <button
-      class="deck-card-count"
+      class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       x{{ card.count }}
     </button>
     <button
-      class="deck-card-details"
+      class="details"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
-      <span class="deck-card-name">{{ card.name }}</span>
+      <span class="name">{{ card.name }}</span>
       <ManaCost :manaCost="card.mc" />
     </button>
   </li>
@@ -36,7 +36,7 @@ export default {
 @import '../_variables.scss';
 
 @mixin deck-card-color($color) {
-  .deck-card-details {
+  .details {
     background-color: lighten($color, 5%);
     border-color: darken($color, 20%);
   }
@@ -65,12 +65,12 @@ export default {
     margin-bottom: 0;
   }
 
-  &-count,
-  &-details {
+  .count,
+  .details {
     padding: 5px 10px;
   }
 
-  &-count {
+  .count {
     background-color: black;
     color: white;
     min-width: 40px;
@@ -78,7 +78,7 @@ export default {
     border-bottom-left-radius: 10px;
   }
 
-  &-details {
+  .details {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,8 +88,9 @@ export default {
     border-top-right-radius: 10px;
   }
 
-  &-name {
+  .name {
     margin-right: 10px;
+    text-align: left;
   }
 }
 </style>

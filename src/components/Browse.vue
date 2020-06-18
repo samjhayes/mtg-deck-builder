@@ -7,6 +7,7 @@
     <BrowseList
       v-else
       :browse-cards="browseCards"
+      :deck-cards="deckCards"
       @add-card-to-deck="$emit('add-card-to-deck', $event)"
       @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
     />
@@ -25,6 +26,7 @@ export default {
   },
   props: {
     browseCards: Array,
+    deckCards: Array,
     isLoaded: Boolean,
   },
 };

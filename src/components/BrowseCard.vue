@@ -1,11 +1,7 @@
 <template>
   <li class="browse-card">
     <div class="count">
-      <span
-        class="counter"
-        v-for="(count, index) in card.count"
-        :key="index"
-      ></span>
+      <span v-if="count">x{{ count }}</span>
     </div>
     <button
       class="button"
@@ -27,6 +23,7 @@ export default {
   },
   props: {
     card: Object,
+    count: Number,
   },
   data: function() {
     return {
@@ -62,23 +59,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$card-width: 64;
-$card-height: 88;
-
-$aspect-ratio: $card-height / $card-width;
+@import '../_variables.scss';
 
 .browse-card {
-  text-align: center;
-
   .count {
-    margin-bottom: 10px;
+    height: 30px;
+    text-align: center;
   }
 
   .button {
     position: relative;
     width: 100%;
     height: 0;
-    padding-top: percentage($aspect_ratio);
+    padding-top: percentage($card-aspect_ratio);
   }
 }
 </style>

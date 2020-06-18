@@ -2,6 +2,7 @@
   <main id="app">
     <Browse
       :browse-cards="browseCards"
+      :deck-cards="deckCards"
       :is-loaded="isLoaded"
       @add-card-to-deck="addCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
@@ -9,7 +10,7 @@
     />
     <Deck
       :data="data"
-      :deckCards="deckCards"
+      :deck-cards="deckCards"
       :mode="mode"
       @add-card-to-deck="addCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
@@ -66,7 +67,7 @@ export default {
       }
     },
     removeCardFromDeck: function(id) {
-      const cardInDeck = this.deckCards.find(obj => obj.id === id);
+      const cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
         if (cardInDeck[`${this.mode}Count`] > 0) {
           cardInDeck[`${this.mode}Count`] -= 1;
@@ -82,9 +83,11 @@ export default {
       this.mode = mode;
     },
     setBrowseCards: function(cards) {
-      this.browseCards = cards.map(function(card) {
-        return { id: card.id, img: card.img, count: 0 };
-      });
+      this.browseCards = cards.map(
+        function(card) {
+          return { id: card.id, img: card.img };
+        }.bind(this)
+      );
     },
     updateFilters: function(filters) {
       const { search, color } = filters;

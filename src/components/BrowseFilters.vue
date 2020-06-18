@@ -79,7 +79,7 @@ export default {
   display: flex;
 
   input {
-    margin-right: 30px;
+    margin-right: 20px;
     width: 400px;
   }
 

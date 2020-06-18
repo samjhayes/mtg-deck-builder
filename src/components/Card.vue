@@ -33,6 +33,6 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: $colorless;
+  background-color: $darkgray;
 }
 </style>

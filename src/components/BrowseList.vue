@@ -4,6 +4,7 @@
       v-for="card in browseCards"
       :key="card.id"
       :card="card"
+      :count="count(card.id)"
       @add-card-to-deck="$emit('add-card-to-deck', $event)"
       @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
     />
@@ -20,6 +21,17 @@ export default {
   },
   props: {
     browseCards: Array,
+    deckCards: Array,
+  },
+  methods: {
+    count: function(id) {
+      let count = 0;
+      const cardInDeck = this.getCardDataById(this.deckCards, id);
+      if (cardInDeck) {
+        count = cardInDeck.mainCount + cardInDeck.sideboardCount;
+      }
+      return count;
+    },
   },
 };
 </script>
@@ -28,12 +40,11 @@ export default {
 @import '../_variables.scss';
 
 .browse-list {
-  flex-grow: 1;
   display: grid;
   column-gap: 30px;
   overflow-y: auto;
   grid-template-columns: auto;
-  padding: 30px;
+  padding: 20px 30px;
 
   @media screen and (min-width: 720px) {
     grid-template-columns: repeat(2, 1fr);
