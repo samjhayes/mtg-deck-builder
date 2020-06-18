@@ -1,9 +1,18 @@
 <template>
   <nav class="browse-filters">
-    <input v-model="search" placeholder="Search for a card" />
-    <div class="browse-filters-mana-color">
-      <button v-for="(color, index) in manaColorFilters" :key="index">
-        <Mana :symbol="color" shadow size="2x" />
+    <input
+      class="search-filter"
+      v-model="searchFilter"
+      placeholder="Search for a card"
+    />
+    <div class="color-filter">
+      <button
+        v-for="(filter, index) in filters.color"
+        :key="index"
+        :data-active="filter.active"
+        @click="colorFilter(filter)"
+      >
+        <Mana :symbol="filter.symbol" shadow size="2x" />
       </button>
     </div>
   </nav>
@@ -21,23 +30,38 @@ export default {
   },
   data: function() {
     return {
-      debouncedSearch: '',
-      timeout: null,
+      filters: {
+        search: '',
+        color: [
+          { symbol: 'w', active: false },
+          { symbol: 'u', active: false },
+          { symbol: 'b', active: false },
+          { symbol: 'r', active: false },
+          { symbol: 'g', active: false },
+          { symbol: 'c', active: false },
+        ],
+      },
+      searchTimeout: null,
     };
   },
   computed: {
-    manaColorFilters: () => ['w', 'u', 'b', 'r', 'g'],
-    search: {
+    searchFilter: {
       get() {
-        return this.debouncedSearch;
+        return this.filters.search;
       },
       set(val) {
-        if (this.timeout) clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          this.debouncedSearch = val;
-          this.$emit('search-changed', this.debouncedSearch);
+        if (this.searchTimeout) clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(() => {
+          this.filters.search = val;
+          this.$emit('filter-changed', this.filters);
         }, SEARCH_DEBOUNCE_MS);
       },
+    },
+  },
+  methods: {
+    colorFilter: function(filter) {
+      filter.active = !filter.active;
+      this.$emit('filter-changed', this.filters);
     },
   },
 };
@@ -52,7 +76,7 @@ export default {
   display: flex;
 
   input {
-    margin-right: 10px;
+    margin-right: 30px;
     width: 400px;
   }
 
@@ -60,16 +84,18 @@ export default {
     padding: 0;
     background-color: transparent;
     border: none;
-    margin-left: 5px;
+    margin-left: 3px;
+    border-radius: 50%;
+    width: $min-input-size;
+    height: $min-input-size;
+    border: 4px solid lighten($darkgray, 15%);
 
-    .mana[data-active='true'] {
-      font-weight: bold;
-      color: white;
-      border: 2px solid white;
+    &[data-active='true'] {
+      border-color: white;
     }
   }
 
-  &-mana-color {
+  .color-filter {
     display: flex;
   }
 }

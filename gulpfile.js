@@ -54,8 +54,8 @@ function manaCostToArray(manaCost) {
 
 function colorsToLowerCase(colors) {
   const lower = [];
-  for (let index = 0; index < colors.length; index++) {
-    lower[index] = colors[index].toLowerCase();
+  for (let i = 0; i < colors.length; i += 1) {
+    lower[i] = colors[i].toLowerCase();
   }
   return lower;
 }

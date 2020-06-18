@@ -1,12 +1,12 @@
 <template>
   <div class="browse">
-    <BrowseFilters @search-changed="searchChanged" />
+    <BrowseFilters @filter-changed="filterChanged" />
     <span class="loading" v-if="!data.length">
       Loading
     </span>
     <ol class="browse-cards" v-else>
       <BrowseCard
-        v-for="card in sortedBrowse"
+        v-for="card in browse"
         :card="card"
         :key="card.id"
         :add-card-to-deck="addCardToDeck"
@@ -55,13 +55,9 @@ export default {
       });
       return cards;
     },
-    sortedBrowse: function() {
-      const browse = [...this.browse];
-      return this.sortCardsByName(browse);
-    },
   },
   methods: {
-    searchChanged: function(val) {
+    filterChanged: function(val) {
       this.$emit('update-filters', val);
     },
   },

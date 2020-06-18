@@ -20,7 +20,7 @@ export default {
 @import '../_variables.scss';
 
 .card {
-  border-radius: 14px;
+  border-radius: 18px;
   background-size: contain;
   background-position: center;
   position: absolute;

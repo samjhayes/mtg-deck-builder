@@ -23,15 +23,17 @@
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 
+const MAX_BROWSE_CARDS = 32;
+
 export default {
   name: 'App',
   components: {
     Browse,
     Deck,
   },
-  mounted: async function mounted() {
+  mounted: async function() {
     const data = await import(/* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json');
-    this.data = data.default;
+    this.data = this.sortCardsByName(data.default);
   },
   methods: {
     addCardToDeck: function(cardId) {
@@ -64,12 +66,32 @@ export default {
     setMode: function(mode) {
       this.mode = mode;
     },
-    updateFilters: function(search) {
+    updateFilters: function(filters) {
+      const { search, color } = filters;
       if (search) {
         let results = this.data.filter(card => {
           return card.name.toLowerCase().startsWith(search.toLowerCase());
         });
-        results = results.slice(0, 32);
+
+        results = results.sort();
+
+        let activeColors = color.filter(color => color.active)
+        activeColors = activeColors.map(color => color.symbol);
+        if (activeColors.length) {
+          results = results.filter(card => {
+            const cardColors = card.col.length ? card.col : ['c'];
+            let matchingColorsCount = 0;
+            for (let i = 0; i < cardColors.length; i +=1) {
+              const color = cardColors[i];
+              if (activeColors.includes(color)) {
+                matchingColorsCount += 1;
+              }
+            }
+            return matchingColorsCount === cardColors.length;
+          });
+        }
+
+        results = results.slice(0, MAX_BROWSE_CARDS);
         this.browseCards = results.map(card => card.id);
       } else {
         this.browseCards = [];

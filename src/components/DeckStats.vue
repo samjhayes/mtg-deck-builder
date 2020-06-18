@@ -17,8 +17,8 @@ export default {
   computed: {
     manaCostCounts: function() {
       const counts = {};
-      for (let index = 0; index < MANA_COST_BREAKPOINT; index += 1) {
-        counts[index] = 0;
+      for (let i = 0; i < MANA_COST_BREAKPOINT; i += 1) {
+        counts[i] = 0;
       }
       counts[`${MANA_COST_BREAKPOINT}+`] = 0;
 
