@@ -56,6 +56,7 @@ export default {
             id: id,
             name: card.name,
             mc: card.mc,
+            cmc: card.cmc,
             col: card.col,
             type: card.type,
             mainCount: 0,
