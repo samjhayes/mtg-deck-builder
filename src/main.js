@@ -41,7 +41,7 @@ Vue.mixin({
       ) {
         return 'sorcery';
       }
-      return '';
+      return 'multiple';
     },
   },
 });
