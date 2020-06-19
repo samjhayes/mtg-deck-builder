@@ -18,9 +18,15 @@ export const sortCardsByName = cards =>
 
 export const sortCardsByCMC = cards =>
   cards.sort(function(a, b) {
+    // Sort lands to the bottom
+    if (a.types[0] === 'land' && b.types[0] !== 'land') return 1;
+    if (a.types[0] !== 'land' && b.types[0] === 'land') return -1;
+
+    // Sort higher mana costs to the top
     if (a.cmc > b.cmc) return -1;
     if (a.cmc < b.cmc) return 1;
 
+    // Finally sort alphabetically if equal mana cost or both are lands
     if (a.name > b.name) return 1;
     if (a.name < b.name) return -1;
   });

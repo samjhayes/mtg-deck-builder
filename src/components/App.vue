@@ -257,7 +257,8 @@ button {
 }
 
 .loading {
-  background: rgba(255, 255, 255, 0.9);
+  color: white;
+  background-color: $modal-background;
   position: fixed;
   display: flex;
   align-items: center;
