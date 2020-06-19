@@ -103,7 +103,7 @@ export default {
         activeColors = activeColors.map(color => color.symbol);
         if (activeColors.length) {
           results = results.filter(card => {
-            const cardColors = card.col.length ? card.col : ['c'];
+            const cardColors = card.colors.length ? card.colors : ['c'];
             let matchingColorsCount = 0;
             for (let i = 0; i < cardColors.length; i += 1) {
               const color = cardColors[i];
