@@ -1,15 +1,13 @@
 <template>
   <div class="mana-cost">
-    <template v-for="(mana, index) in processed">
+    <template v-for="(mana, index) in processedManaCost">
       <Mana
-        v-if="mana.symbol !== '/'"
         :key="index"
         :symbol="mana.symbol"
         :half="mana.half"
         shadow
         size="1x"
       />
-      <span class="break" v-else :key="index">//</span>
     </template>
   </div>
 </template>
@@ -26,20 +24,22 @@ export default {
     manaCost: Array,
   },
   computed: {
-    processed: function() {
-      const processed = [];
-      this.manaCost.forEach(mana => {
-        const processedMana = {
-          symbol: mana,
-          half: false,
-        };
-        if (mana.slice(0, 1) === 'h') {
-          processedMana.half = true;
-          processedMana.symbol = mana.slice(1, 2);
-        }
-        processed.push(processedMana);
-      });
-      return processed;
+    processedManaCost: function() {
+      const processedManaCost = [];
+      if (this.manaCost.length) {
+        this.manaCost[0].forEach(mana => {
+          const processedMana = {
+            symbol: mana,
+            half: false,
+          };
+          if (mana.slice(0, 1) === 'h') {
+            processedMana.half = true;
+            processedMana.symbol = mana.slice(1, 2);
+          }
+          processedManaCost.push(processedMana);
+        });
+      }
+      return processedManaCost;
     },
   },
 };

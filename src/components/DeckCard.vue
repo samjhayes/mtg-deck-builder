@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card" :data-colors="card.col.join(' ')">
+  <li class="deck-card" :data-colors="card.colors.join(' ')">
     <button
       class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -16,7 +16,7 @@
         <Mana v-if="type" :symbol="type" fixed />
       </span>
       <span class="name">{{ card.name }}</span>
-      <ManaCost class="mana-cost" :manaCost="card.mc" />
+      <ManaCost class="mana-cost" :manaCost="card.manaCost" />
     </button>
   </li>
 </template>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     type: function() {
-      return this.getTypeFromTypeLine(this.card.type);
+      return this.getTypeFromTypeLine(this.card.type[0]);
     },
   },
 };

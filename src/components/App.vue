@@ -55,9 +55,9 @@ export default {
           cardInDeck = {
             id: id,
             name: card.name,
-            mc: card.mc,
+            manaCost: card.manaCost,
             cmc: card.cmc,
-            col: card.col,
+            colors: card.colors,
             type: card.type,
             mainCount: 0,
             sideboardCount: 0,
@@ -86,7 +86,7 @@ export default {
     setBrowseCards: function(cards) {
       this.browseCards = cards.map(
         function(card) {
-          return { id: card.id, img: card.img };
+          return { id: card.id, images: card.images };
         }.bind(this)
       );
     },
@@ -126,7 +126,16 @@ export default {
     const data = await import(
       /* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json'
     );
-    this.data = this.sortCardsByName(data.default);
+    this.data = this.sortCardsByName(data.default).map(card => ({
+      id: card.id,
+      name: card.n,
+      cmc: card.cc,
+      keywords: card.k,
+      images: card.i,
+      manaCost: card.mc,
+      colors: card.c,
+      type: card.t,
+    }));
   },
 };
 </script>

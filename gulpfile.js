@@ -39,23 +39,53 @@ function scryfallOracle(uri, cb) {
     });
 }
 
-function manaCostToArray(manaCost) {
-  if (manaCost) {
-    const manaCostArr = manaCost
-      .trim()
-      .toLowerCase()
-      .slice(1, manaCost.length - 1)
-      .replace(/ /g, '')
-      .replace(/\/\//g, '\\')
-      .replace(/\//g, '')
-      .replace(/\\/g, '{/}')
-      .split('}{');
-    return manaCostArr;
+function processImages(card) {
+  const { image_uris, card_faces } = card;
+  let images = [];
+  if (image_uris) {
+    images.push(image_uris.normal);
+  } else if (card_faces) {
+    for (let i = 0; i < card_faces.length; i += 1) {
+      const face = card_faces[i];
+      images.push(face.image_uris.normal);
+    }
   }
-  return [];
+  return images;
 }
 
-function colorsToLowerCase(colors) {
+function formatManaCosts(manaCost) {
+  const costsOut = [];
+  manaCost.split(' // ').forEach(cost => {
+    const processed = cost
+      .trim()
+      .toLowerCase()
+      .slice(1, cost.length - 1)
+      .replace(/\//g, '')
+      .split('}{');
+    costsOut.push(processed);
+  });
+  return costsOut;
+}
+
+function processManaCost(card) {
+  const { mana_cost, card_faces } = card;
+  let costsOut = [];
+  if (mana_cost) {
+    costsOut.push(...formatManaCosts(mana_cost));
+  } else if (card_faces) {
+    for (let i = 0; i < card_faces.length; i += 1) {
+      const face = card_faces[i];
+      if (face.mana_cost) {
+        costsOut.push(...formatManaCosts(face.mana_cost));
+      } else {
+        costsOut.push([]);
+      }
+    }
+  }
+  return costsOut;
+}
+
+function processColors(colors) {
   const lower = [];
   for (let i = 0; i < colors.length; i += 1) {
     lower[i] = colors[i].toLowerCase();
@@ -63,19 +93,26 @@ function colorsToLowerCase(colors) {
   return lower;
 }
 
+function processType(type) {
+  return type.split(' // ');
+}
+
 function remapOracle(json) {
   const cards = json.filter(
-    card => card.image_uris !== undefined && card.type_line !== 'Card'
+    card =>
+      card.type_line !== 'Card' &&
+      (card.image_uris !== undefined ||
+        (card.card_faces && card.card_faces[0].image_uris !== undefined))
   );
   const remapped = cards.map(card => ({
     id: card.oracle_id,
-    name: card.name,
-    mc: manaCostToArray(card.mana_cost),
-    cmc: card.cmc,
-    col: colorsToLowerCase(card.color_identity),
-    type: card.type_line,
-    kw: card.keywords,
-    img: card.image_uris.normal,
+    n: card.name,
+    cc: card.cmc,
+    k: card.keywords,
+    i: processImages(card),
+    mc: processManaCost(card),
+    c: processColors(card.color_identity),
+    t: processType(card.type_line),
   }));
   return JSON.stringify(remapped);
 }

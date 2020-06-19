@@ -13,7 +13,7 @@ export default {
     style: function() {
       const style = {};
       if (this.showImage) {
-        style.backgroundImage = `url(${this.card.img})`;
+        style.backgroundImage = `url(${this.card.images[0]})`;
       }
       return style;
     },
