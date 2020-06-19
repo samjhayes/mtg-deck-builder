@@ -1,16 +1,17 @@
 <template>
   <div class="browse">
     <BrowseFilters @update-filters="$emit('update-filters', $event)" />
-    <span class="loading" v-if="!isLoaded">
+    <div class="loading" v-if="!isLoaded">
       Loading
-    </span>
-    <BrowseList
-      v-else
-      :browse-cards="browseCards"
-      :deck-cards="deckCards"
-      @add-card-to-deck="$emit('add-card-to-deck', $event)"
-      @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
-    />
+    </div>
+    <div class="overflow" v-else>
+      <BrowseList
+        :browse-cards="browseCards"
+        :deck-cards="deckCards"
+        @add-card-to-deck="$emit('add-card-to-deck', $event)"
+        @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
+      />
+    </div>
   </div>
 </template>
 
@@ -52,5 +53,9 @@ export default {
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+}
+
+.overflow {
+  overflow-y: auto;
 }
 </style>

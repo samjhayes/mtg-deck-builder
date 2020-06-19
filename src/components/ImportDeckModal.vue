@@ -1,7 +1,7 @@
 <template>
   <Modal>
     <p>Import a deck</p>
-    <textarea v-model="importDeckText" cols="80" rows="50" />
+    <textarea v-model="importDeckText" />
     <div>
       <Button @click="$emit('import-deck', importDeckText)">Import</Button>
       <Button @click="$emit('set-modal', '')">Cancel</Button>
@@ -37,8 +37,10 @@ textarea {
 
 textarea {
   display: block;
+  width: 600px;
+  height: 600px;
   max-width: 100%;
-  resize: vertical;
+  resize: none;
 }
 
 div {

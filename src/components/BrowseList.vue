@@ -40,26 +40,11 @@ export default {
 @import '../_variables.scss';
 
 .browse-list {
+  padding: 20px;
   display: grid;
-  column-gap: 30px;
-  overflow-y: auto;
-  grid-template-columns: auto;
-  padding: 20px 30px;
-
-  @media screen and (min-width: 720px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media screen and (min-width: 1260px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media screen and (min-width: 1920px) {
-    grid-template-columns: repeat(8, 1fr);
-  }
-
-  > li {
-    margin-bottom: 30px;
-  }
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 20px;
 }
 </style>
