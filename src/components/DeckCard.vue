@@ -13,10 +13,14 @@
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       <span class="type">
-        <Mana v-if="type" :symbol="type" fixed />
+        <Mana v-if="card.types.length" :symbol="card.types[0]" fixed />
       </span>
       <span class="name">{{ card.name }}</span>
-      <ManaCost class="mana-cost" :manaCost="card.manaCost" />
+      <ManaCost
+        v-if="card.manaCosts.length"
+        class="mana-cost"
+        :manaCost="card.manaCosts[0]"
+      />
     </button>
   </li>
 </template>
@@ -33,11 +37,6 @@ export default {
   },
   props: {
     card: Object,
-  },
-  computed: {
-    type: function() {
-      return this.getTypeFromTypeLine(this.card.type[0]);
-    },
   },
 };
 </script>

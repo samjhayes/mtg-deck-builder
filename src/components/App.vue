@@ -124,10 +124,11 @@ export default {
           cardInDeck = {
             id: id,
             name: card.name,
-            manaCost: card.manaCost,
+            manaCosts: card.manaCosts,
             cmc: card.cmc,
             colors: card.colors,
-            type: card.type,
+            types: card.types,
+            typeLines: card.typeLines,
             mainCount: 0,
             sideboardCount: 0,
           };
@@ -164,7 +165,7 @@ export default {
     setBrowseCards(cards) {
       this.browseCards = cards.map(
         function(card) {
-          return { id: card.id, images: card.images };
+          return { id: card.id, images: card.images, name: card.name };
         }.bind(this)
       );
     },
@@ -210,9 +211,10 @@ export default {
       cmc: card.cc,
       keywords: card.k,
       images: card.i,
-      manaCost: card.mc,
+      manaCosts: card.mc,
       colors: card.c,
-      type: card.t,
+      typeLines: card.t,
+      types: this.getTypesFromTypeLines(card.t),
     }));
     this.setIsLoading(false);
   },

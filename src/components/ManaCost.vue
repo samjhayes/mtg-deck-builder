@@ -24,9 +24,9 @@ export default {
   },
   computed: {
     processedManaCost: function() {
-      const processedManaCost = [];
-      if (this.manaCost.length) {
-        this.manaCost[0].forEach(mana => {
+      const manaCost = [];
+      if (this.manaCost) {
+        this.manaCost.forEach(mana => {
           const processedMana = {
             symbol: mana,
             half: false,
@@ -35,10 +35,10 @@ export default {
             processedMana.half = true;
             processedMana.symbol = mana.slice(1, 2);
           }
-          processedManaCost.push(processedMana);
+          manaCost.push(processedMana);
         });
       }
-      return processedManaCost;
+      return manaCost;
     },
   },
 };

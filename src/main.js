@@ -7,6 +7,7 @@ import {
   sortCardsByName,
   sortCardsByCMC,
   getTypeFromTypeLine,
+  getTypesFromTypeLines,
 } from './utils.js';
 
 Vue.mixin({
@@ -16,6 +17,7 @@ Vue.mixin({
     sortCardsByName,
     sortCardsByCMC,
     getTypeFromTypeLine,
+    getTypesFromTypeLines,
   },
 });
 

@@ -51,3 +51,12 @@ export const getTypeFromTypeLine = typeLine => {
   }
   return 'multiple';
 };
+
+export const getTypesFromTypeLines = typeLines => {
+  const types = [];
+  for (let i = 0; i < typeLines.length; i += 1) {
+    const type = typeLines[i];
+    types.push(getTypeFromTypeLine(type));
+  }
+  return types;
+};
