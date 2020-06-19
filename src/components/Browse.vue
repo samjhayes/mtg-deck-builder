@@ -1,10 +1,7 @@
 <template>
   <div class="browse">
     <BrowseFilters @update-filters="$emit('update-filters', $event)" />
-    <div class="loading" v-if="!isLoaded">
-      Loading
-    </div>
-    <div class="overflow" v-else>
+    <div class="overflow">
       <BrowseList
         :browse-cards="browseCards"
         :deck-cards="deckCards"
@@ -45,14 +42,6 @@ export default {
   width: calc(100vw - #{$sidebar-width});
   display: flex;
   flex-direction: column;
-}
-
-.loading {
-  padding: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
 }
 
 .overflow {

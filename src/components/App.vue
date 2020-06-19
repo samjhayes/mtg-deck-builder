@@ -3,7 +3,6 @@
     <Browse
       :browse-cards="browseCards"
       :deck-cards="deckCards"
-      :is-loaded="isLoaded"
       @add-card-to-deck="addOneCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @update-filters="updateFilters"
@@ -22,8 +21,12 @@
       v-if="activeModal === modals.IMPORT_DECK"
       @set-modal="setModal"
       @close-modal="setModal"
+      @reset-deck="resetDeck"
       @import-deck="importDeck"
     />
+    <div class="loading" v-if="isLoading">
+      Loading
+    </div>
   </main>
 </template>
 
@@ -50,32 +53,49 @@ export default {
       mode: 'main',
       activeModal: '',
       modals: modals,
+      isLoading: true,
     };
   },
-  computed: {
-    isLoaded: function() {
-      return this.data.length !== 0;
-    },
-  },
   methods: {
-    importDeck: function(text) {
-      const blocks = text.trim().split('\n\n');
-      if (blocks.length > 0) {
-        this.addCardFromTextToDeck(blocks[0], 'main');
-      }
-      if (blocks.length > 1) {
-        this.addCardFromTextToDeck(blocks[1], 'sideboard');
-      }
-    },
-    exportDeck: function() {
-      console.log('export deck');
-    },
-    resetDeck: function() {
+    resetDeck() {
       this.deckCards = [];
     },
-    addCardFromTextToDeck(text, mode) {
-      const re = /^(\d+) (.+?)( \([A-Z0-9]+\))?( \d+)?$/gm;
+    exportDeck() {
+      console.log('export deck');
+    },
+    importDeck(text) {
+      this.setIsLoading(true);
+      this.closeModal();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(
+          async function() {
+            await this.$nextTick();
+            this.processDeckImport(text);
+            this.setIsLoading(false);
+          }.bind(this)
+        );
+      });
+    },
+    processDeckImport(text) {
+      return new Promise(
+        function(resolve) {
+          const blocks = text.trim().split('\n\n');
+
+          if (blocks.length > 0) {
+            this.addCardsToDeckFromText(blocks[0], 'main');
+          }
+
+          if (blocks.length > 1) {
+            this.addCardsToDeckFromText(blocks[1], 'sideboard');
+          }
+          resolve();
+        }.bind(this)
+      );
+    },
+    addCardsToDeckFromText(text, mode) {
+      const re = /^x?(\d+)x? (.+?)( \([A-Z0-9]+\))?( \d+)?$/gm;
       const matches = [...text.matchAll(re)];
+      const cards = [];
       matches.forEach(match => {
         const count = parseInt(match[1]);
         if (count) {
@@ -83,6 +103,7 @@ export default {
           const card = this.getCardDataByName(this.data, name);
           if (card) {
             this.addCardToDeck(card.id, count, mode);
+            cards.push({ id: card.id, count: count, mode: mode });
           } else {
             // TODO: handle missing cards
             console.error('missing', name);
@@ -93,7 +114,7 @@ export default {
     addOneCardToDeck(id) {
       this.addCardToDeck(id, 1, this.mode);
     },
-    addCardToDeck: function(id, count, mode) {
+    addCardToDeck(id, count, mode) {
       let cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
         cardInDeck[`${mode}Count`] += count;
@@ -115,7 +136,7 @@ export default {
         }
       }
     },
-    removeCardFromDeck: function(id) {
+    removeCardFromDeck(id) {
       const cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
         if (cardInDeck[`${this.mode}Count`] > 0) {
@@ -128,23 +149,26 @@ export default {
         }
       }
     },
-    setMode: function(mode) {
+    setMode(mode) {
       this.mode = mode;
     },
-    setModal: function(modal) {
+    setIsLoading(isLoading) {
+      this.isLoading = isLoading;
+    },
+    setModal(modal) {
       this.activeModal = modal;
     },
-    closeModal: function() {
+    closeModal() {
       this.setModal('');
     },
-    setBrowseCards: function(cards) {
+    setBrowseCards(cards) {
       this.browseCards = cards.map(
         function(card) {
           return { id: card.id, images: card.images };
         }.bind(this)
       );
     },
-    updateFilters: function(filters) {
+    updateFilters(filters) {
       const { search, color } = filters;
       if (search) {
         let results = this.data.filter(card => {
@@ -190,6 +214,7 @@ export default {
       colors: card.c,
       type: card.t,
     }));
+    this.setIsLoading(false);
   },
 };
 </script>
@@ -227,5 +252,17 @@ button {
   padding: 0;
   border: none;
   background-color: transparent;
+}
+
+.loading {
+  background: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>
