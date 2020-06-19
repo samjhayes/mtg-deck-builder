@@ -4,13 +4,15 @@
       :data-active="mainActive"
       @click.prevent="$emit('set-mode', 'main')"
     >
-      Main <span class="deck-tabs-count">({{ mainCount }})</span>
+      Main (<span class="num">{{ mainCount }}</span
+      >)
     </button>
     <button
       :data-active="sideboardActive"
       @click.prevent="$emit('set-mode', 'sideboard')"
     >
-      Sideboard <span class="deck-tabs-count">({{ sideboardCount }})</span>
+      Sideboard (<span class="num">{{ sideboardCount }}</span
+      >)
     </button>
   </div>
 </template>
@@ -76,6 +78,10 @@ export default {
     &:last-of-type {
       border-top-right-radius: 10px;
     }
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
   }
 }
 </style>

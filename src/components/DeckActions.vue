@@ -1,18 +1,24 @@
 <template>
   <div>
-    <Button @click="$emit('set-modal', 'IMPORT_DECK')">Import</Button>
-    <Button @click="$emit('set-modal', 'EXPORT_DECK')">Export</Button>
+    <Button @click="$emit('set-modal', modals.IMPORT_DECK)">Import</Button>
+    <Button @click="$emit('set-modal', modals.EXPORT_DECK)">Export</Button>
     <Button @click="$emit('reset-deck')">Reset</Button>
   </div>
 </template>
 
 <script>
 import Button from './Button.vue';
+import { modals } from '../enums.js';
 
 export default {
   name: 'DeckActions',
   components: {
     Button,
+  },
+  data() {
+    return {
+      modals: modals,
+    };
   },
 };
 </script>

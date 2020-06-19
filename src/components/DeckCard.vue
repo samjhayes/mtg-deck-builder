@@ -5,7 +5,7 @@
       @click.prevent="$emit('add-card-to-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
-      x{{ card.count }}
+      x<span class="num">{{ card.count }}</span>
     </button>
     <button
       class="details"
@@ -87,9 +87,13 @@ export default {
   .count {
     background-color: black;
     color: white;
-    min-width: 40px;
+    min-width: 50px;
     border: 2px solid white;
     border-bottom-left-radius: 10px;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
   }
 
   .details {

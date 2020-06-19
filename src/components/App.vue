@@ -4,7 +4,7 @@
       :browse-cards="browseCards"
       :deck-cards="deckCards"
       :is-loaded="isLoaded"
-      @add-card-to-deck="addCardToDeck"
+      @add-card-to-deck="addOneCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @update-filters="updateFilters"
     />
@@ -12,15 +12,16 @@
       :data="data"
       :deck-cards="deckCards"
       :mode="mode"
-      @add-card-to-deck="addCardToDeck"
+      @add-card-to-deck="addOneCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @set-mode="setMode"
       @set-modal="setModal"
       @reset-deck="resetDeck"
     />
     <ImportDeckModal
-      v-if="modal === 'IMPORT_DECK'"
+      v-if="activeModal === modals.IMPORT_DECK"
       @set-modal="setModal"
+      @close-modal="setModal"
       @import-deck="importDeck"
     />
   </main>
@@ -30,6 +31,7 @@
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 import ImportDeckModal from './ImportDeckModal.vue';
+import { modals } from '../enums.js';
 
 const MAX_BROWSE_CARDS = 250;
 
@@ -46,7 +48,8 @@ export default {
       browseCards: [],
       deckCards: [],
       mode: 'main',
-      modal: '',
+      activeModal: '',
+      modals: modals,
     };
   },
   computed: {
@@ -56,12 +59,13 @@ export default {
   },
   methods: {
     importDeck: function(text) {
-      this.setModal('');
-      const re = /^(\d+)x? (.+?)( \([A-Z0-9]+\) \d+)?$/gm;
-      const matches = [...text.matchAll(re)];
-      matches.forEach(match => {
-        console.log(match[1], match[2]);
-      });
+      const blocks = text.trim().split('\n\n');
+      if (blocks.length > 0) {
+        this.addCardFromTextToDeck(blocks[0], 'main');
+      }
+      if (blocks.length > 1) {
+        this.addCardFromTextToDeck(blocks[1], 'sideboard');
+      }
     },
     exportDeck: function() {
       console.log('export deck');
@@ -69,10 +73,30 @@ export default {
     resetDeck: function() {
       this.deckCards = [];
     },
-    addCardToDeck: function(id) {
+    addCardFromTextToDeck(text, mode) {
+      const re = /^(\d+) (.+?)( \([A-Z0-9]+\))?( \d+)?$/gm;
+      const matches = [...text.matchAll(re)];
+      matches.forEach(match => {
+        const count = parseInt(match[1]);
+        if (count) {
+          const name = match[2];
+          const card = this.getCardDataByName(this.data, name);
+          if (card) {
+            this.addCardToDeck(card.id, count, mode);
+          } else {
+            // TODO: handle missing cards
+            console.error('missing', name);
+          }
+        }
+      });
+    },
+    addOneCardToDeck(id) {
+      this.addCardToDeck(id, 1, this.mode);
+    },
+    addCardToDeck: function(id, count, mode) {
       let cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
-        cardInDeck[`${this.mode}Count`] += 1;
+        cardInDeck[`${mode}Count`] += count;
       } else {
         const card = this.getCardDataById(this.data, id);
         if (card) {
@@ -86,7 +110,7 @@ export default {
             mainCount: 0,
             sideboardCount: 0,
           };
-          cardInDeck[`${this.mode}Count`] += 1;
+          cardInDeck[`${mode}Count`] += count;
           this.deckCards.push(cardInDeck);
         }
       }
@@ -108,7 +132,10 @@ export default {
       this.mode = mode;
     },
     setModal: function(modal) {
-      this.modal = modal;
+      this.activeModal = modal;
+    },
+    closeModal: function() {
+      this.setModal('');
     },
     setBrowseCards: function(cards) {
       this.browseCards = cards.map(

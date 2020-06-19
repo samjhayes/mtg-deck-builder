@@ -4,7 +4,7 @@
     <textarea v-model="importDeckText" />
     <div>
       <Button @click="$emit('import-deck', importDeckText)">Import</Button>
-      <Button @click="$emit('set-modal', '')">Cancel</Button>
+      <Button @click="$emit('close-modal')">Cancel</Button>
     </div>
   </Modal>
 </template>
