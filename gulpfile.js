@@ -45,7 +45,10 @@ function manaCostToArray(manaCost) {
       .trim()
       .toLowerCase()
       .slice(1, manaCost.length - 1)
+      .replace(/ /g, '')
+      .replace(/\/\//g, '\\')
       .replace(/\//g, '')
+      .replace(/\\/g, '{/}')
       .split('}{');
     return manaCostArr;
   }

@@ -1,13 +1,16 @@
 <template>
   <div class="mana-cost">
-    <Mana
-      v-for="(mana, index) in processed"
-      :key="index"
-      :symbol="mana.symbol"
-      :half="mana.half"
-      shadow
-      size="1x"
-    />
+    <template v-for="(mana, index) in processed">
+      <Mana
+        v-if="mana.symbol !== '/'"
+        :key="index"
+        :symbol="mana.symbol"
+        :half="mana.half"
+        shadow
+        size="1x"
+      />
+      <span class="break" v-else :key="index">//</span>
+    </template>
   </div>
 </template>
 
@@ -60,6 +63,12 @@ export default {
     &:last-of-type {
       margin-right: 0;
     }
+  }
+
+  .break {
+    margin: 0 5px;
+    transform: translateY(3px);
+    /* font-size: 15px; */
   }
 }
 </style>

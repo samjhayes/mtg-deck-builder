@@ -95,12 +95,10 @@ export default {
   .details {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
-    overflow: hidden;
     border: 4px solid $colorless;
     border-top-right-radius: 10px;
     padding-left: 0;
+    flex-grow: 1;
   }
 
   .type {
@@ -110,12 +108,13 @@ export default {
   }
 
   .name {
-    margin-right: 10px;
+    margin-right: 20px;
     text-align: left;
   }
 
   .mana-cost {
     flex-grow: 1;
+    min-width: max-content;
   }
 }
 </style>
