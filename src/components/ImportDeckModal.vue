@@ -1,0 +1,48 @@
+<template>
+  <Modal>
+    <p>Import a deck</p>
+    <textarea v-model="importDeckText" cols="80" rows="50" />
+    <div>
+      <Button @click="$emit('import-deck', importDeckText)">Import</Button>
+      <Button @click="$emit('set-modal', '')">Cancel</Button>
+    </div>
+  </Modal>
+</template>
+
+<script>
+import Button from './Button.vue';
+import Modal from './Modal.vue';
+
+export default {
+  name: 'ImportDeckModal',
+  components: {
+    Button,
+    Modal,
+  },
+  data: function() {
+    return {
+      importDeckText: '',
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../_variables.scss';
+
+p,
+textarea {
+  margin: 0 0 20px;
+}
+
+textarea {
+  display: block;
+  max-width: 100%;
+  resize: vertical;
+}
+
+div {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>

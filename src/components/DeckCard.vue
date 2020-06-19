@@ -88,7 +88,7 @@ export default {
     background-color: black;
     color: white;
     min-width: 40px;
-    border: 1px solid white;
+    border: 2px solid white;
     border-bottom-left-radius: 10px;
   }
 

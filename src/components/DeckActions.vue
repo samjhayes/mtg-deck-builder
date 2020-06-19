@@ -1,32 +1,31 @@
 <template>
-  <div class="deck-actions">
-    <!-- <input placeholder="Untitled Deck 1" />
-    <button>Import</button>
-    <button>Export</button> -->
+  <div>
+    <Button @click="$emit('set-modal', 'IMPORT_DECK')">Import</Button>
+    <Button @click="$emit('set-modal', 'EXPORT_DECK')">Export</Button>
+    <Button @click="$emit('reset-deck')">Reset</Button>
   </div>
 </template>
 
 <script>
+import Button from './Button.vue';
+
 export default {
   name: 'DeckActions',
+  components: {
+    Button,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '../_variables.scss';
 
-.deck-actions {
-  display: grid;
-  grid-template-columns: 4fr 1fr 1fr;
+div {
+  margin-top: 10px;
+  display: flex;
 
-  input {
-    flex-grow: 1;
-  }
-
-  button {
-    min-height: $min-input-size;
-    background-color: lightgray;
-    padding: 10px;
+  > *:last-of-type {
+    margin-left: auto;
   }
 }
 </style>

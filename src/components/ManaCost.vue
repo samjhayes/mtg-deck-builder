@@ -1,14 +1,13 @@
 <template>
-  <div class="mana-cost">
-    <template v-for="(mana, index) in processedManaCost">
-      <Mana
-        :key="index"
-        :symbol="mana.symbol"
-        :half="mana.half"
-        shadow
-        size="1x"
-      />
-    </template>
+  <div class="mana-cost" v-if="processedManaCost.length">
+    <Mana
+      v-for="(mana, index) in processedManaCost"
+      :key="index"
+      :symbol="mana.symbol"
+      :half="mana.half"
+      shadow
+      size="1x"
+    />
   </div>
 </template>
 

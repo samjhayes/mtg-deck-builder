@@ -15,6 +15,13 @@
       @add-card-to-deck="addCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @set-mode="setMode"
+      @set-modal="setModal"
+      @reset-deck="resetDeck"
+    />
+    <ImportDeckModal
+      v-if="modal === 'IMPORT_DECK'"
+      @set-modal="setModal"
+      @import-deck="importDeck"
     />
   </main>
 </template>
@@ -22,6 +29,7 @@
 <script>
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
+import ImportDeckModal from './ImportDeckModal.vue';
 
 const MAX_BROWSE_CARDS = 250;
 
@@ -30,6 +38,7 @@ export default {
   components: {
     Browse,
     Deck,
+    ImportDeckModal,
   },
   data() {
     return {
@@ -37,6 +46,7 @@ export default {
       browseCards: [],
       deckCards: [],
       mode: 'main',
+      modal: '',
     };
   },
   computed: {
@@ -45,6 +55,20 @@ export default {
     },
   },
   methods: {
+    importDeck: function(text) {
+      this.setModal('');
+      const re = /^(\d+)x? (.+?)( \([A-Z0-9]+\) \d+)?$/gm;
+      const matches = [...text.matchAll(re)];
+      matches.forEach(match => {
+        console.log(match[1], match[2]);
+      });
+    },
+    exportDeck: function() {
+      console.log('export deck');
+    },
+    resetDeck: function() {
+      this.deckCards = [];
+    },
     addCardToDeck: function(id) {
       let cardInDeck = this.getCardDataById(this.deckCards, id);
       if (cardInDeck) {
@@ -82,6 +106,9 @@ export default {
     },
     setMode: function(mode) {
       this.mode = mode;
+    },
+    setModal: function(modal) {
+      this.modal = modal;
     },
     setBrowseCards: function(cards) {
       this.browseCards = cards.map(

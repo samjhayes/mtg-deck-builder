@@ -1,6 +1,9 @@
 <template>
   <div class="deck">
-    <DeckActions />
+    <DeckActions
+      @set-modal="$emit('set-modal', $event)"
+      @reset-deck="$emit('reset-deck', $event)"
+    />
     <DeckTabs
       :main-cards="deck.mainCards"
       :sideboard-cards="deck.sideboardCards"
