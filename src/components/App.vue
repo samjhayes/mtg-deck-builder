@@ -192,6 +192,9 @@ export default {
     closeModal() {
       this.setModal('');
     },
+    resetBrowseCards() {
+      this.browseCards = [];
+    },
     setBrowseCards(cards) {
       this.browseCards = cards.map(
         function(card) {
@@ -206,7 +209,7 @@ export default {
           return card.name.toLowerCase().includes(search.toLowerCase());
         });
 
-        results = results.sort();
+        results = this.sortCardsByName(results);
 
         let activeColors = color.filter(color => color.active);
         activeColors = activeColors.map(color => color.symbol);
@@ -227,7 +230,7 @@ export default {
         results = results.slice(0, MAX_BROWSE_CARDS);
         this.setBrowseCards(results);
       } else {
-        this.browseCards = [];
+        this.resetBrowseCards([]);
       }
     },
   },
@@ -235,7 +238,7 @@ export default {
     const data = await import(
       /* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json'
     );
-    this.data = this.sortCardsByName(data.default).map(card => ({
+    this.data = data.default.map(card => ({
       id: card.id,
       name: card.n,
       cmc: card.cc,
