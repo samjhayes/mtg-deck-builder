@@ -31,6 +31,11 @@
       @close-modal="closeModal"
       @reset-import-cards="resetImportCards"
     />
+    <ExportDeckModal
+      v-if="activeModal === modals.EXPORT_DECK"
+      :deck-cards="deckCards"
+      @close-modal="closeModal"
+    />
     <div class="loading" v-if="isLoading">
       Loading
     </div>
@@ -42,6 +47,7 @@ import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 import ImportDeckModal from './ImportDeckModal.vue';
 import ImportFinishedModal from './ImportFinishedModal.vue';
+import ExportDeckModal from './ExportDeckModal.vue';
 import { modals } from '../enums.js';
 
 const MAX_BROWSE_CARDS = 250;
@@ -53,6 +59,7 @@ export default {
     Deck,
     ImportDeckModal,
     ImportFinishedModal,
+    ExportDeckModal,
   },
   data() {
     return {
