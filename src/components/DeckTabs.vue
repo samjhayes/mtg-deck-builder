@@ -18,12 +18,6 @@
 </template>
 
 <script>
-const getTotalCount = cards => {
-  let count = 0;
-  cards.forEach(obj => (count += obj.count));
-  return count;
-};
-
 export default {
   name: 'DeckTabs',
   props: {
@@ -34,10 +28,10 @@ export default {
   },
   computed: {
     mainCount: function() {
-      return getTotalCount(this.mainCards);
+      return this.getTotalCardCount(this.mainCards);
     },
     sideboardCount: function() {
-      return getTotalCount(this.sideboardCards);
+      return this.getTotalCardCount(this.sideboardCards);
     },
     mainActive: function() {
       return this.mode === 'main';

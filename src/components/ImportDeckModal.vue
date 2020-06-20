@@ -1,6 +1,6 @@
 <template>
   <Modal>
-    <p>Import a deck</p>
+    <p>Import deck</p>
     <textarea v-model="importDeckText" placeholder="Paste your deck here" />
     <div>
       <Button
@@ -45,10 +45,9 @@ textarea {
 }
 
 textarea {
+  width: 100%;
+  height: 500px;
   display: block;
-  width: 600px;
-  height: 600px;
-  max-width: 100%;
   resize: none;
   padding: 10px;
 }

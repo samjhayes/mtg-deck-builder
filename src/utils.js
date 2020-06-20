@@ -66,3 +66,21 @@ export const getTypesFromTypeLines = typeLines => {
   }
   return types;
 };
+
+export const getTotalCardCount = cards => {
+  let count = 0;
+  cards.forEach(obj => (count += obj.count));
+  return count;
+};
+
+export const mergeCardsWithSameName = cards => {
+  const reduced = cards.reduce((accum, val) => {
+    const combined = { ...val };
+    const accumName = accum.get(val.name);
+    if (accumName) {
+      combined.count += accumName.count;
+    }
+    return accum.set(val.name, combined);
+  }, new Map());
+  return [...reduced.values()];
+};

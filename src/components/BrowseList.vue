@@ -39,10 +39,12 @@ export default {
 <style lang="scss" scoped>
 @import '../_variables.scss';
 
+$browse-card-width: 240px;
+
 .browse-list {
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 220px);
+  grid-template-columns: repeat(auto-fill, $browse-card-width);
   justify-content: center;
   column-gap: 20px;
   row-gap: 20px;

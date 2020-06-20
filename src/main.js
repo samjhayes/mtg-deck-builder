@@ -8,6 +8,8 @@ import {
   sortCardsByCMC,
   getTypeFromTypeLine,
   getTypesFromTypeLines,
+  getTotalCardCount,
+  mergeCardsWithSameName,
 } from './utils.js';
 
 Vue.mixin({
@@ -18,7 +20,15 @@ Vue.mixin({
     sortCardsByCMC,
     getTypeFromTypeLine,
     getTypesFromTypeLines,
+    getTotalCardCount,
+    mergeCardsWithSameName,
   },
+});
+
+Vue.filter('pluralize', (count, text) => {
+  const intCount = parseInt(count);
+  const s = intCount > 1 || intCount === 0 ? 's' : '';
+  return `${count} ${text}${s}`;
 });
 
 new Vue({

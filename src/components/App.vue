@@ -20,9 +20,16 @@
     <ImportDeckModal
       v-if="activeModal === modals.IMPORT_DECK"
       @set-modal="setModal"
-      @close-modal="setModal"
+      @close-modal="closeModal"
       @reset-deck="resetDeck"
       @import-deck="importDeck"
+    />
+    <ImportFinishedModal
+      v-if="activeModal === modals.IMPORT_FINISHED"
+      :import-added-cards="importAddedCards"
+      :import-missing-cards="importMissingCards"
+      @close-modal="closeModal"
+      @reset-import-cards="resetImportCards"
     />
     <div class="loading" v-if="isLoading">
       Loading
@@ -34,6 +41,7 @@
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
 import ImportDeckModal from './ImportDeckModal.vue';
+import ImportFinishedModal from './ImportFinishedModal.vue';
 import { modals } from '../enums.js';
 
 const MAX_BROWSE_CARDS = 250;
@@ -44,6 +52,7 @@ export default {
     Browse,
     Deck,
     ImportDeckModal,
+    ImportFinishedModal,
   },
   data() {
     return {
@@ -53,12 +62,18 @@ export default {
       mode: 'main',
       activeModal: '',
       modals: modals,
+      importAddedCards: [],
+      importMissingCards: [],
       isLoading: true,
     };
   },
   methods: {
     resetDeck() {
       this.deckCards = [];
+    },
+    resetImportCards() {
+      this.importAddedCards = [];
+      this.importMissingCards = [];
     },
     exportDeck() {
       console.log('export deck');
@@ -70,32 +85,43 @@ export default {
         requestAnimationFrame(
           async function() {
             await this.$nextTick();
-            this.processDeckImport(text);
+            this.processDeckImportText(text);
             this.setIsLoading(false);
+            this.setModal(modals.IMPORT_FINISHED);
           }.bind(this)
         );
       });
     },
-    processDeckImport(text) {
-      return new Promise(
-        function(resolve) {
-          const blocks = text.trim().split('\n\n');
+    processDeckImportText(text) {
+      const added = [];
+      const missing = [];
 
-          if (blocks.length > 0) {
-            this.addCardsToDeckFromText(blocks[0], 'main');
-          }
+      const blocks = text.trim().split('\n\n');
 
-          if (blocks.length > 1) {
-            this.addCardsToDeckFromText(blocks[1], 'sideboard');
-          }
-          resolve();
-        }.bind(this)
-      );
+      if (blocks.length > 0) {
+        const mainCards = this.addCardsToDeckFromText(blocks[0], 'main');
+        added.push(...mainCards.added);
+        missing.push(...mainCards.missing);
+      }
+
+      if (blocks.length > 1) {
+        const sideboardCards = this.addCardsToDeckFromText(
+          blocks[1],
+          'sideboard'
+        );
+        added.push(...sideboardCards.added);
+        missing.push(...sideboardCards.missing);
+      }
+
+      this.importAddedCards = added;
+      this.importMissingCards = missing;
     },
     addCardsToDeckFromText(text, mode) {
+      const added = [];
+      const missing = [];
+
       const re = /^x?(\d+)x? (.+?)( \([A-Z0-9]+\))?( \d+)?$/gm;
       const matches = [...text.matchAll(re)];
-      const cards = [];
       matches.forEach(match => {
         const count = parseInt(match[1]);
         if (count) {
@@ -103,13 +129,17 @@ export default {
           const card = this.getCardDataByName(this.data, name);
           if (card) {
             this.addCardToDeck(card.id, count, mode);
-            cards.push({ id: card.id, count: count, mode: mode });
+            added.push({ name: card.name, count });
           } else {
-            // TODO: handle missing cards
-            console.error('missing', name);
+            missing.push({ name, count });
           }
         }
       });
+
+      return {
+        added: this.mergeCardsWithSameName(added),
+        missing: this.mergeCardsWithSameName(missing),
+      };
     },
     addOneCardToDeck(id) {
       this.addCardToDeck(id, 1, this.mode);

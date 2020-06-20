@@ -29,8 +29,9 @@ export default {
 
 .modal {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   max-width: 95vw;
   max-height: 95vh;
+  width: 500px;
 }
 </style>
