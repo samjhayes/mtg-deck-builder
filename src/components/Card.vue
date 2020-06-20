@@ -1,5 +1,8 @@
 <template>
-  <div class="card" :title="card.name" :style="style"></div>
+  <div class="card" :title="card.name">
+    <span class="name">{{ card.name }}</span>
+    <span class="image" :style="style"></span>
+  </div>
 </template>
 
 <script>
@@ -25,14 +28,34 @@ export default {
 @import '../_variables.scss';
 
 .card {
-  border-radius: 18px;
-  background-size: contain;
-  background-position: center;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background-color: $darkgray;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.name,
+.image {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 10px;
+}
+
+.image {
+  background-size: contain;
+  background-position: center;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
 .browse-list {
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, 220px);
   justify-content: center;
   column-gap: 20px;
   row-gap: 20px;

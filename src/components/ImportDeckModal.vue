@@ -1,7 +1,7 @@
 <template>
   <Modal>
     <p>Import a deck</p>
-    <textarea v-model="importDeckText" />
+    <textarea v-model="importDeckText" placeholder="Paste your deck here" />
     <div>
       <Button
         @click="
@@ -50,6 +50,7 @@ textarea {
   height: 600px;
   max-width: 100%;
   resize: none;
+  padding: 10px;
 }
 
 div {
