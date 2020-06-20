@@ -13,7 +13,7 @@
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       <span class="type">
-        <Mana v-if="card.types.length" :symbol="card.types[0]" fixed />
+        <Mana v-if="type" :symbol="type" fixed />
       </span>
       <span class="name">{{ card.name }}</span>
       <ManaCost
@@ -37,6 +37,17 @@ export default {
   },
   props: {
     card: Object,
+  },
+  computed: {
+    type() {
+      if (this.card.types.length) {
+        if (['token', 'unknown'].includes(this.card.types[0])) {
+          return 'multiple';
+        }
+        return this.card.types[0];
+      }
+      return '';
+    },
   },
 };
 </script>

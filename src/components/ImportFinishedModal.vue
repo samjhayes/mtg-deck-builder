@@ -4,7 +4,7 @@
       <h2>{{ addedCount | pluralize('card') }} added successfully</h2>
     </div>
     <div class="missing">
-      <h2>{{ missingCount | pluralize('card') }} not found</h2>
+      <h2>{{ missingCount | pluralize('card') }} missing</h2>
       <ul v-if="importMissingCards.length">
         <li v-for="(card, index) in importMissingCards" :key="index">
           {{ card.count }}x {{ card.name }}

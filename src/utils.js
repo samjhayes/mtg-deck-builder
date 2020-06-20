@@ -5,8 +5,9 @@ export const getCardDataByName = (data, name) =>
     const lowerName = name.toLowerCase();
     const lowerCardName = card.name.toLowerCase();
     return (
-      lowerCardName === lowerName ||
-      lowerCardName.split(' // ')[0] === lowerName
+      (lowerCardName === lowerName ||
+        lowerCardName.split(' // ')[0] === lowerName) &&
+      !card.types.includes('token')
     );
   });
 
@@ -36,6 +37,9 @@ export const getTypeFromTypeLine = typeLine => {
   if (lower.includes('land')) {
     return 'land';
   }
+  if (lower.includes('token')) {
+    return 'token';
+  }
   if (lower.includes('creature') || lower.includes('summon')) {
     return 'creature';
   }
@@ -55,7 +59,7 @@ export const getTypeFromTypeLine = typeLine => {
   ) {
     return 'sorcery';
   }
-  return 'multiple';
+  return 'unknown';
 };
 
 export const getTypesFromTypeLines = typeLines => {

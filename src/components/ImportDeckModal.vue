@@ -1,6 +1,6 @@
 <template>
   <Modal>
-    <p>Import deck</p>
+    <h2>Import deck</h2>
     <textarea v-model="importDeckText" placeholder="Paste your deck here" />
     <div>
       <Button
@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 @import '../_variables.scss';
 
-p,
+h2,
 textarea {
   margin: 0 0 20px;
 }
