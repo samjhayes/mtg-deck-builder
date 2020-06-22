@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card" :style="border">
+  <li class="deck-card" :style="background">
     <button
       class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -9,7 +9,7 @@
     </button>
     <button
       class="details"
-      :style="fill"
+      :style="foreground"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
@@ -40,7 +40,7 @@ export default {
     card: Object,
   },
   computed: {
-    border() {
+    background() {
       const colors = this.theme.backgroundColors;
       let background = colors.colorless;
       if (this.card.colors.length > 1) {
@@ -58,7 +58,7 @@ export default {
         background: background,
       };
     },
-    fill() {
+    foreground() {
       const colors = this.theme.foregroundColors;
       let background = colors.colorless;
       if (this.card.colors.length > 1) {
