@@ -32,6 +32,11 @@ export const sortCardsByCMC = cards =>
     if (a.name < b.name) return -1;
   });
 
+export const sortColors = colors => {
+  const targetOrder = ['w', 'u', 'b', 'r', 'g'];
+  return targetOrder.filter(color => colors.includes(color));
+};
+
 export const getTypeFromTypeLine = typeLine => {
   const lower = typeLine.toLowerCase();
   if (lower.includes('land')) {

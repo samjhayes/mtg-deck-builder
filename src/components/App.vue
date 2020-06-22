@@ -262,8 +262,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../_variables.scss';
-
 $ms-font-path: '~mana-font/fonts';
 @import 'mana-font/sass/mana';
 

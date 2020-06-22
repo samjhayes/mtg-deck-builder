@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import App from './components/App.vue';
 
+const theme = require('sass-extract-loader?{"plugins":["sass-extract-js"]}!./_variables.scss');
+
 import {
   getCardDataById,
   getCardDataByName,
   sortCardsByName,
   sortCardsByCMC,
+  sortColors,
   getTypeFromTypeLine,
   getTypesFromTypeLines,
   getTotalCardCount,
@@ -18,10 +21,18 @@ Vue.mixin({
     getCardDataByName,
     sortCardsByName,
     sortCardsByCMC,
+    sortColors,
     getTypeFromTypeLine,
     getTypesFromTypeLines,
     getTotalCardCount,
     mergeCardsWithSameName,
+  },
+  data: function() {
+    return {
+      get theme() {
+        return theme;
+      },
+    };
   },
 });
 

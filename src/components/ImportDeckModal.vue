@@ -37,8 +37,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
 h2,
 textarea {
   margin: 0 0 20px;

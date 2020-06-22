@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card" :data-colors="card.colors.join(' ')">
+  <li class="deck-card" :style="backgroundColor">
     <button
       class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -9,6 +9,7 @@
     </button>
     <button
       class="details"
+      :style="foregroundColor"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
@@ -39,6 +40,39 @@ export default {
     card: Object,
   },
   computed: {
+    foregroundColor() {
+      const colors = this.theme.foregroundColors;
+      let background = colors.colorless;
+      if (this.card.colors.length > 1) {
+        background = colors.multicolor;
+      } else if (this.card.colors.length) {
+        background = colors[this.card.colors[0]];
+      }
+      return {
+        background,
+      };
+    },
+    backgroundColor() {
+      const { backgroundColors } = this.theme;
+      const colors = this.sortColors(this.card.colors);
+      let background = backgroundColors.colorless;
+      if (colors.length > 1) {
+        const gradientSections = [];
+        for (let i = 0; i < colors.length; i++) {
+          const color = backgroundColors[colors[i]];
+          const percent = (100 / (colors.length - 1)) * i;
+          gradientSections.push(`${color} ${percent}%`);
+        }
+        background = `linear-gradient(to right, ${gradientSections.join(
+          ', '
+        )})`;
+      } else if (colors.length) {
+        background = backgroundColors[colors[0]];
+      }
+      return {
+        background,
+      };
+    },
     type() {
       if (this.card.types.length) {
         if (['token', 'unknown'].includes(this.card.types[0])) {
@@ -53,37 +87,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
-@mixin deck-card-color($color) {
-  .details {
-    background-color: lighten($color, 5%);
-    border-color: darken($color, 20%);
-
-    .type {
-      color: darken($color, 35%);
-    }
-  }
-}
-
 .deck-card {
-  margin-bottom: 3px;
+  position: relative;
   display: flex;
-  min-height: 40px;
-
-  &[data-colors] {
-    @include deck-card-color($multicolor);
-  }
-
-  &[data-colors=''] {
-    @include deck-card-color($colorless);
-  }
-
-  @each $key, $val in $colors {
-    &[data-colors='#{$key}'] {
-      @include deck-card-color($val);
-    }
-  }
+  min-height: $min-input-size;
+  margin-bottom: 4px;
+  border-radius: 10px;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -91,7 +100,9 @@ export default {
 
   .count,
   .details {
-    padding: 5px 10px;
+    padding: 5px;
+    position: relative;
+    line-height: 1;
   }
 
   .count {
@@ -99,7 +110,10 @@ export default {
     color: white;
     min-width: 50px;
     border: 2px solid white;
+    border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    position: relative;
+    box-shadow: 2px 0 0 black;
   }
 
   .num {
@@ -109,16 +123,20 @@ export default {
   .details {
     display: flex;
     align-items: center;
-    border: 4px solid $colorless;
-    border-top-right-radius: 10px;
     padding-left: 0;
     flex-grow: 1;
+    margin: 4px;
+    margin-left: 6px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid black;
   }
 
   .type {
-    width: 15px;
-    margin: 0 10px;
     font-size: 15px;
+    width: 15px;
+    margin: 0 7px;
+    color: $darkgray;
   }
 
   .name {
