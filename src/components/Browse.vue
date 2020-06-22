@@ -7,6 +7,7 @@
         :deck-cards="deckCards"
         @add-card-to-deck="$emit('add-card-to-deck', $event)"
         @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
+        @show-preview-card="$emit('show-preview-card', $event)"
       />
     </div>
   </div>
@@ -43,9 +44,9 @@ export default {
 }
 
 .overflow {
-  position: relative;
   overflow-y: auto;
   flex-grow: 1;
+  position: relative;
 
   &:before,
   &:after {
@@ -53,8 +54,8 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
   }
 
   &:before {
@@ -63,7 +64,7 @@ export default {
 
   &:after {
     background: $gray;
-    border-top-right-radius: 20px;
+    border-top-right-radius: 10px;
   }
 }
 </style>

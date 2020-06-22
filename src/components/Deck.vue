@@ -14,6 +14,7 @@
       :deck="activeDeck"
       @add-card-to-deck="$emit('add-card-to-deck', $event)"
       @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
+      @show-preview-card="$emit('show-preview-card', $event)"
     />
     <DeckStats :deck="activeDeck" />
   </div>

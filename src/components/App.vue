@@ -1,11 +1,12 @@
 <template>
-  <main id="app">
+  <main id="app" @click.prevent="resetPreviewCard">
     <Browse
       :browse-cards="browseCards"
       :deck-cards="deckCards"
       @add-card-to-deck="addOneCardToDeck"
       @remove-card-from-deck="removeCardFromDeck"
       @update-filters="updateFilters"
+      @show-preview-card="showPreviewCard"
     />
     <Deck
       :data="data"
@@ -16,6 +17,13 @@
       @set-mode="setMode"
       @set-modal="setModal"
       @reset-deck="resetDeck"
+      @show-preview-card="showPreviewCard"
+    />
+    <PreviewCard
+      v-if="preview"
+      :card="preview.card"
+      :left="preview.x"
+      :top="preview.y"
     />
     <ImportDeckModal
       v-if="activeModal === modals.IMPORT_DECK"
@@ -45,9 +53,10 @@
 <script>
 import Browse from './Browse.vue';
 import Deck from './Deck.vue';
+import ExportDeckModal from './ExportDeckModal.vue';
 import ImportDeckModal from './ImportDeckModal.vue';
 import ImportFinishedModal from './ImportFinishedModal.vue';
-import ExportDeckModal from './ExportDeckModal.vue';
+import PreviewCard from './PreviewCard.vue';
 import { modals } from '../enums.js';
 
 const MAX_BROWSE_CARDS = 250;
@@ -57,9 +66,10 @@ export default {
   components: {
     Browse,
     Deck,
+    ExportDeckModal,
     ImportDeckModal,
     ImportFinishedModal,
-    ExportDeckModal,
+    PreviewCard,
   },
   data() {
     return {
@@ -71,6 +81,7 @@ export default {
       modals: modals,
       importAddedCards: [],
       importMissingCards: [],
+      preview: null,
       isLoading: true,
     };
   },
@@ -159,13 +170,7 @@ export default {
         const card = this.getCardDataById(this.data, id);
         if (card) {
           cardInDeck = {
-            id: id,
-            name: card.name,
-            manaCosts: card.manaCosts,
-            cmc: card.cmc,
-            colors: card.colors,
-            types: card.types,
-            typeLines: card.typeLines,
+            ...card,
             mainCount: 0,
             sideboardCount: 0,
           };
@@ -201,6 +206,18 @@ export default {
     },
     resetBrowseCards() {
       this.browseCards = [];
+    },
+    showPreviewCard(args) {
+      const { card, event } = args;
+      const { clientX, clientY } = event;
+      this.preview = {
+        card,
+        x: clientX,
+        y: clientY,
+      };
+    },
+    resetPreviewCard() {
+      this.preview = null;
     },
     setBrowseCards(cards) {
       this.browseCards = cards.map(

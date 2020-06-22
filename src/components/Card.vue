@@ -10,12 +10,12 @@ export default {
   name: 'Card',
   props: {
     card: Object,
-    showImage: Boolean,
+    loadImage: Boolean,
   },
   computed: {
     style: function() {
       const style = {};
-      if (this.showImage) {
+      if (this.loadImage) {
         style.backgroundImage = `url(${this.card.images[0]})`;
       }
       return style;
@@ -31,9 +31,9 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: $darkgray;
   overflow: hidden;
-  border-radius: 18px;
+  background-color: $darkgray;
+  border-radius: 15px;
 }
 
 .name,
@@ -53,6 +53,7 @@ export default {
 }
 
 .image {
+  background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }

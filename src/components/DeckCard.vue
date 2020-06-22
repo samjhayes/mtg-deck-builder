@@ -1,17 +1,16 @@
 <template>
-  <li class="deck-card" :style="backgroundColor">
-    <button
-      class="count"
-      @click.prevent="$emit('add-card-to-deck', card.id)"
-      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
-    >
+  <li
+    class="deck-card"
+    :style="backgroundColor"
+    @contextmenu.prevent="$emit('show-preview-card', { card, event: $event })"
+  >
+    <button class="count" @click.prevent="$emit('add-card-to-deck', card.id)">
       x<span class="num">{{ card.count }}</span>
     </button>
     <button
       class="details"
       :style="foregroundColor"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
-      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
       <span class="type">
         <Mana v-if="type" :symbol="type" fixed />
