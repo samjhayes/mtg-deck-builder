@@ -49,14 +49,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
 .added {
-  color: map-get($colors, 'g');
+  color: $success;
 }
 
 .missing {
-  color: map-get($colors, 'r');
+  color: $failure;
 
   ul {
     max-height: 300px;

@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
 .card {
   position: absolute;
   top: 0;

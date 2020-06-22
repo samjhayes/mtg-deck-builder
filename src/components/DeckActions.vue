@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
 div {
   margin-top: 10px;
   display: flex;

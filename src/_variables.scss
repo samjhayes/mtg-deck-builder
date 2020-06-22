@@ -8,18 +8,28 @@ $card-height: 88;
 $card-aspect-ratio: $card-height / $card-width;
 
 // Colors
-$gray: #cccccc;
-$darkgray: #222222;
 
-$multicolor: #dcbb76;
-$colorless: #c5ccd1;
+$backgroundColors: (
+  'w': #ffffff,
+  'u': #2b9cdd,
+  'b': #646464,
+  'r': #ff4800,
+  'g': #77be54,
+  'colorless': #e3e6e4,
+);
 
-$colors: (
-  'w': #e9e3cb,
-  'u': #a3c6e7,
-  'b': #aca29a,
-  'r': #db8664,
-  'g': #93b483,
+$foregroundColors: (
+  'w': #f0f1d1,
+  'u': #a5d2ec,
+  'b': #c2b8af,
+  'r': #fac8b6,
+  'g': #bee5ce,
+  'multicolor': #f0d374,
+  'colorless': #c1cbcc,
 );
 
 $modal-background: rgba(0, 0, 0, 0.75);
+$gray: #cccccc;
+$darkgray: #222222;
+$success: map-get($backgroundColors, 'g');
+$failure: map-get($backgroundColors, 'r');

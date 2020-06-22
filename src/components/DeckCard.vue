@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card" :data-colors="card.colors.join(' ')">
+  <li class="deck-card" :style="border">
     <button
       class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -9,6 +9,7 @@
     </button>
     <button
       class="details"
+      :style="fill"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
@@ -39,6 +40,36 @@ export default {
     card: Object,
   },
   computed: {
+    border() {
+      const colors = this.theme.backgroundColors;
+      let background = colors.colorless;
+      if (this.card.colors.length > 1) {
+        const gradient = [];
+        for (let i = 0; i < this.card.colors.length; i++) {
+          const color = colors[this.card.colors[i]];
+          const percent = (100 / (this.card.colors.length - 1)) * i;
+          gradient.push(`${color} ${percent}%`);
+        }
+        background = `linear-gradient(to right, ${gradient.join(', ')})`;
+      } else if (this.card.colors.length) {
+        background = colors[this.card.colors[0]];
+      }
+      return {
+        background: background,
+      };
+    },
+    fill() {
+      const colors = this.theme.foregroundColors;
+      let background = colors.colorless;
+      if (this.card.colors.length > 1) {
+        background = colors.multicolor;
+      } else if (this.card.colors.length) {
+        background = colors[this.card.colors[0]];
+      }
+      return {
+        background,
+      };
+    },
     type() {
       if (this.card.types.length) {
         if (['token', 'unknown'].includes(this.card.types[0])) {
@@ -53,37 +84,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
-@mixin deck-card-color($color) {
-  .details {
-    background-color: lighten($color, 5%);
-    border-color: darken($color, 20%);
-
-    .type {
-      color: darken($color, 35%);
-    }
-  }
-}
-
 .deck-card {
-  margin-bottom: 3px;
+  position: relative;
   display: flex;
-  min-height: 40px;
-
-  &[data-colors] {
-    @include deck-card-color($multicolor);
-  }
-
-  &[data-colors=''] {
-    @include deck-card-color($colorless);
-  }
-
-  @each $key, $val in $colors {
-    &[data-colors='#{$key}'] {
-      @include deck-card-color($val);
-    }
-  }
+  min-height: $min-input-size;
+  margin-bottom: 4px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -91,7 +98,9 @@ export default {
 
   .count,
   .details {
-    padding: 5px 10px;
+    padding: 5px;
+    position: relative;
+    line-height: 1;
   }
 
   .count {
@@ -100,6 +109,8 @@ export default {
     min-width: 50px;
     border: 2px solid white;
     border-bottom-left-radius: 10px;
+    position: relative;
+    box-shadow: 1px 0 0 black;
   }
 
   .num {
@@ -109,16 +120,23 @@ export default {
   .details {
     display: flex;
     align-items: center;
-    border: 4px solid $colorless;
-    border-top-right-radius: 10px;
     padding-left: 0;
     flex-grow: 1;
+    margin: 4px;
+    margin-left: 5px;
+    border-top-right-radius: 10px;
+    border: 1px solid black;
+
+    &:before {
+      content: '';
+      border-left: 1px solid black;
+    }
   }
 
   .type {
-    width: 15px;
-    margin: 0 10px;
     font-size: 15px;
+    width: 15px;
+    margin: 0 7px;
   }
 
   .name {

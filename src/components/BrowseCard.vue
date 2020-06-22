@@ -59,8 +59,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../_variables.scss';
-
 .browse-card {
   .count {
     height: 30px;
