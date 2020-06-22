@@ -53,8 +53,24 @@ export default {
       };
     },
     backgroundColor() {
+      const { backgroundColors } = this.theme;
+      const colors = this.sortColors(this.card.colors);
+      let background = backgroundColors.colorless;
+      if (colors.length > 1) {
+        const gradientSections = [];
+        for (let i = 0; i < colors.length; i++) {
+          const color = backgroundColors[colors[i]];
+          const percent = (100 / (colors.length - 1)) * i;
+          gradientSections.push(`${color} ${percent}%`);
+        }
+        background = `linear-gradient(to right, ${gradientSections.join(
+          ', '
+        )})`;
+      } else if (colors.length) {
+        background = backgroundColors[colors[0]];
+      }
       return {
-        background: this.getGradient(),
+        background,
       };
     },
     type() {
@@ -65,24 +81,6 @@ export default {
         return this.card.types[0];
       }
       return '';
-    },
-  },
-  methods: {
-    getGradient() {
-      const colors = this.theme.backgroundColors;
-      let gradient = colors.colorless;
-      if (this.card.colors.length > 1) {
-        const gradientSections = [];
-        for (let i = 0; i < this.card.colors.length; i++) {
-          const color = colors[this.card.colors[i]];
-          const percent = (100 / (this.card.colors.length - 1)) * i;
-          gradientSections.push(`${color} ${percent}%`);
-        }
-        gradient = `linear-gradient(to right, ${gradientSections.join(', ')})`;
-      } else if (this.card.colors.length) {
-        gradient = colors[this.card.colors[0]];
-      }
-      return gradient;
     },
   },
 };
