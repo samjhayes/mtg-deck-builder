@@ -14,15 +14,20 @@ export default {
   },
   props: {
     card: Object,
-    top: Number,
-    left: Number,
+    x: Number,
+    y: Number,
+    offsetX: Boolean,
+    offsetY: Boolean,
   },
   computed: {
     style() {
-      const { top, left } = this;
+      const { x, y, offsetX, offsetY } = this;
+      const { cardWidth, cardHeight } = this.theme;
+      const left = offsetX ? x - cardWidth : x;
+      const top = offsetY ? y - cardHeight : y;
       return {
-        top: `${top}px`,
         left: `${left}px`,
+        top: `${top}px`,
       };
     },
   },
@@ -30,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$card-width-px: 400px;
+$card-width-px: 488px;
 
 .preview-card {
   position: fixed;

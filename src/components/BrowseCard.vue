@@ -60,6 +60,10 @@ export default {
 
 <style lang="scss" scoped>
 .browse-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   .count {
     height: 30px;
     text-align: center;

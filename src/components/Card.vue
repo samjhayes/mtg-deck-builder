@@ -26,18 +26,15 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  border-radius: 15px;
   overflow: hidden;
   background-color: $darkgray;
-  border-radius: 15px;
+  top: 0;
 }
 
 .name,
-.image {
+.image,
+.card {
   position: absolute;
   display: block;
   width: 100%;

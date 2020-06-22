@@ -1,5 +1,5 @@
 <template>
-  <main id="app" @click.prevent="resetPreviewCard">
+  <main id="app" @click.prevent="resetPreviewCard" @contextmenu.prevent="">
     <Browse
       :browse-cards="browseCards"
       :deck-cards="deckCards"
@@ -22,8 +22,10 @@
     <PreviewCard
       v-if="preview"
       :card="preview.card"
-      :left="preview.x"
-      :top="preview.y"
+      :x="preview.x"
+      :y="preview.y"
+      :offsetX="preview.offsetX"
+      :offsetY="preview.offsetY"
     />
     <ImportDeckModal
       v-if="activeModal === modals.IMPORT_DECK"
@@ -210,10 +212,17 @@ export default {
     showPreviewCard(args) {
       const { card, event } = args;
       const { clientX, clientY } = event;
+      const { innerWidth, innerHeight } = window;
+
+      const offsetX = clientX > innerWidth / 2;
+      const offsetY = clientY > innerHeight / 2;
+
       this.preview = {
         card,
         x: clientX,
         y: clientY,
+        offsetX,
+        offsetY,
       };
     },
     resetPreviewCard() {
@@ -284,6 +293,7 @@ $ms-font-path: '~mana-font/fonts';
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
