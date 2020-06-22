@@ -43,6 +43,27 @@ export default {
 }
 
 .overflow {
+  position: relative;
   overflow-y: auto;
+  flex-grow: 1;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:before {
+    background: $darkgray;
+  }
+
+  &:after {
+    background: $gray;
+    border-top-right-radius: 20px;
+  }
 }
 </style>

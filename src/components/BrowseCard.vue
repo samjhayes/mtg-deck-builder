@@ -6,7 +6,7 @@
     <button
       class="button"
       @click.prevent="$emit('add-card-to-deck', card.id)"
-      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
+      @contextmenu.prevent="$emit('show-preview-card', card.id)"
     >
       <Card :card="card" :show-image="showImage" />
     </button>
