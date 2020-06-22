@@ -1,5 +1,5 @@
 <template>
-  <li class="deck-card" :style="background">
+  <li class="deck-card" :style="backgroundColor">
     <button
       class="count"
       @click.prevent="$emit('add-card-to-deck', card.id)"
@@ -9,7 +9,7 @@
     </button>
     <button
       class="details"
-      :style="foreground"
+      :style="foregroundColor"
       @click.prevent="$emit('remove-card-from-deck', card.id)"
       @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
     >
@@ -40,25 +40,7 @@ export default {
     card: Object,
   },
   computed: {
-    background() {
-      const colors = this.theme.backgroundColors;
-      let background = colors.colorless;
-      if (this.card.colors.length > 1) {
-        const gradient = [];
-        for (let i = 0; i < this.card.colors.length; i++) {
-          const color = colors[this.card.colors[i]];
-          const percent = (100 / (this.card.colors.length - 1)) * i;
-          gradient.push(`${color} ${percent}%`);
-        }
-        background = `linear-gradient(to right, ${gradient.join(', ')})`;
-      } else if (this.card.colors.length) {
-        background = colors[this.card.colors[0]];
-      }
-      return {
-        background: background,
-      };
-    },
-    foreground() {
+    foregroundColor() {
       const colors = this.theme.foregroundColors;
       let background = colors.colorless;
       if (this.card.colors.length > 1) {
@@ -68,6 +50,11 @@ export default {
       }
       return {
         background,
+      };
+    },
+    backgroundColor() {
+      return {
+        background: this.getGradient(),
       };
     },
     type() {
@@ -80,6 +67,24 @@ export default {
       return '';
     },
   },
+  methods: {
+    getGradient() {
+      const colors = this.theme.backgroundColors;
+      let gradient = colors.colorless;
+      if (this.card.colors.length > 1) {
+        const gradientSections = [];
+        for (let i = 0; i < this.card.colors.length; i++) {
+          const color = colors[this.card.colors[i]];
+          const percent = (100 / (this.card.colors.length - 1)) * i;
+          gradientSections.push(`${color} ${percent}%`);
+        }
+        gradient = `linear-gradient(to right, ${gradientSections.join(', ')})`;
+      } else if (this.card.colors.length) {
+        gradient = colors[this.card.colors[0]];
+      }
+      return gradient;
+    },
+  },
 };
 </script>
 
@@ -89,8 +94,7 @@ export default {
   display: flex;
   min-height: $min-input-size;
   margin-bottom: 4px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -108,9 +112,10 @@ export default {
     color: white;
     min-width: 50px;
     border: 2px solid white;
+    border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     position: relative;
-    box-shadow: 1px 0 0 black;
+    box-shadow: 2px 0 0 black;
   }
 
   .num {
@@ -123,20 +128,17 @@ export default {
     padding-left: 0;
     flex-grow: 1;
     margin: 4px;
-    margin-left: 5px;
+    margin-left: 6px;
     border-top-right-radius: 10px;
-    border: 1px solid black;
-
-    &:before {
-      content: '';
-      border-left: 1px solid black;
-    }
+    border-bottom-right-radius: 10px;
+    border: 2px solid black;
   }
 
   .type {
     font-size: 15px;
     width: 15px;
     margin: 0 7px;
+    color: $darkgray;
   }
 
   .name {
