@@ -28,7 +28,7 @@ export default {
   components: {
     Mana,
   },
-  data: function() {
+  data() {
     return {
       filters: {
         search: '',
@@ -64,7 +64,7 @@ export default {
       this.$emit('update-filters', this.filters);
     },
   },
-  beforeDestroy: function() {
+  beforeDestroy() {
     clearTimeout(this.searchTimeout);
   },
 };

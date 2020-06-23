@@ -27,16 +27,16 @@ export default {
     mode: String,
   },
   computed: {
-    mainCount: function() {
+    mainCount() {
       return this.getTotalCardCount(this.mainCards);
     },
-    sideboardCount: function() {
+    sideboardCount() {
       return this.getTotalCardCount(this.sideboardCards);
     },
-    mainActive: function() {
+    mainActive() {
       return this.mode === 'main';
     },
-    sideboardActive: function() {
+    sideboardActive() {
       return this.mode === 'sideboard';
     },
   },

@@ -4,30 +4,34 @@ import App from './components/App.vue';
 const theme = require('sass-extract-loader?{"plugins":["sass-extract-js"]}!./_variables.scss');
 
 import {
+  downloadJSON,
   getCardDataById,
   getCardDataByName,
-  sortCardsByName,
-  sortCardsByCMC,
-  sortColors,
+  getSeparateMainAndSideboard,
   getTypeFromTypeLine,
   getTypesFromTypeLines,
   getTotalCardCount,
+  sortCardsByCMC,
+  sortCardsByName,
+  sortColors,
   mergeCardsWithSameName,
 } from './utils.js';
 
 Vue.mixin({
   methods: {
+    downloadJSON,
     getCardDataById,
     getCardDataByName,
-    sortCardsByName,
-    sortCardsByCMC,
-    sortColors,
+    getSeparateMainAndSideboard,
     getTypeFromTypeLine,
     getTypesFromTypeLines,
     getTotalCardCount,
+    sortCardsByCMC,
+    sortCardsByName,
+    sortColors,
     mergeCardsWithSameName,
   },
-  data: function() {
+  data() {
     return {
       get theme() {
         return theme;

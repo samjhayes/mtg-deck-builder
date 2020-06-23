@@ -1,3 +1,15 @@
+export const downloadJSON = (obj, filename) => {
+  const data = JSON.stringify(obj, null, 2);
+  const type = 'application/json';
+  const blob = new Blob([data], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${filename}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
 export const getCardDataById = (data, id) => data.find(card => card.id === id);
 
 export const getCardDataByName = (data, name) =>
@@ -10,30 +22,24 @@ export const getCardDataByName = (data, name) =>
     );
   });
 
-export const sortCardsByName = cards =>
-  cards.sort(function(a, b) {
-    if (a.name > b.name) return 1;
-    if (a.name < b.name) return -1;
+export const getSeparateMainAndSideboard = cards => {
+  const mainCards = [];
+  const sideboardCards = [];
+
+  cards.forEach(card => {
+    if (card.mainCount) {
+      mainCards.push({ ...card, count: card.mainCount });
+    }
+
+    if (card.sideboardCount) {
+      sideboardCards.push({ ...card, count: card.sideboardCount });
+    }
   });
 
-export const sortCardsByCMC = cards =>
-  cards.sort(function(a, b) {
-    // Sort lands to the bottom
-    if (a.types[0] === 'land' && b.types[0] !== 'land') return 1;
-    if (a.types[0] !== 'land' && b.types[0] === 'land') return -1;
-
-    // Sort higher mana costs to the top
-    if (a.cmc > b.cmc) return -1;
-    if (a.cmc < b.cmc) return 1;
-
-    // Finally sort alphabetically if equal mana cost or both are lands
-    if (a.name > b.name) return 1;
-    if (a.name < b.name) return -1;
-  });
-
-export const sortColors = colors => {
-  const targetOrder = ['w', 'u', 'b', 'r', 'g'];
-  return targetOrder.filter(color => colors.includes(color));
+  return {
+    mainCards,
+    sideboardCards,
+  };
 };
 
 export const getTypeFromTypeLine = typeLine => {
@@ -80,6 +86,32 @@ export const getTotalCardCount = cards => {
   cards.forEach(obj => (count += obj.count));
   return count;
 };
+
+export const sortCardsByCMC = cards =>
+  cards.sort(function(a, b) {
+    // Sort lands to the bottom
+    if (a.types[0] === 'land' && b.types[0] !== 'land') return 1;
+    if (a.types[0] !== 'land' && b.types[0] === 'land') return -1;
+
+    // Sort higher mana costs to the top
+    if (a.cmc > b.cmc) return -1;
+    if (a.cmc < b.cmc) return 1;
+
+    // Finally sort alphabetically if equal mana cost or both are lands
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+  });
+
+export const sortColors = colors => {
+  const targetOrder = ['w', 'u', 'b', 'r', 'g'];
+  return targetOrder.filter(color => colors.includes(color));
+};
+
+export const sortCardsByName = cards =>
+  cards.sort(function(a, b) {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+  });
 
 export const mergeCardsWithSameName = cards => {
   const reduced = cards.reduce((accum, val) => {

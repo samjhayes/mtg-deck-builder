@@ -28,7 +28,7 @@ export default {
     Button,
     Modal,
   },
-  data: function() {
+  data() {
     return {
       importDeckText: '',
     };
