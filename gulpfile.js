@@ -68,10 +68,11 @@ function remapOracle(json) {
 }
 
 function filterOracle(json) {
+  const ignored_types = ['scheme', 'planar', 'token', 'double_faced_token'];
   return json.filter(
     card =>
       card.type_line !== 'Card' &&
-      !['scheme', 'token'].includes(card.layout) &&
+      !ignored_types.includes(card.layout) &&
       (card.image_uris !== undefined ||
         (card.card_faces && card.card_faces[0].image_uris !== undefined))
   );
