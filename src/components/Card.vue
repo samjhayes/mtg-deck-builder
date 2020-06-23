@@ -10,12 +10,12 @@ export default {
   name: 'Card',
   props: {
     card: Object,
-    showImage: Boolean,
+    loadImage: Boolean,
   },
   computed: {
     style: function() {
       const style = {};
-      if (this.showImage) {
+      if (this.loadImage) {
         style.backgroundImage = `url(${this.card.images[0]})`;
       }
       return style;
@@ -26,18 +26,15 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: $darkgray;
+  border-radius: 15px;
   overflow: hidden;
-  border-radius: 18px;
+  background-color: $darkgray;
+  top: 0;
 }
 
 .name,
-.image {
+.image,
+.card {
   position: absolute;
   display: block;
   width: 100%;
@@ -53,6 +50,7 @@ export default {
 }
 
 .image {
+  background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }

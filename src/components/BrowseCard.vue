@@ -6,9 +6,9 @@
     <button
       class="button"
       @click.prevent="$emit('add-card-to-deck', card.id)"
-      @contextmenu.prevent="$emit('remove-card-from-deck', card.id)"
+      @contextmenu.prevent="$emit('show-preview-card', { card, event: $event })"
     >
-      <Card :card="card" :show-image="showImage" />
+      <Card :card="card" :load-image="loadImage" />
     </button>
   </li>
 </template>
@@ -27,7 +27,7 @@ export default {
   },
   data: function() {
     return {
-      showImage: false,
+      loadImage: false,
       observer: null,
     };
   },
@@ -35,7 +35,7 @@ export default {
     handleIntersection: function(entries) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          this.showImage = true;
+          this.loadImage = true;
           this.observer.disconnect();
           this.observer = null;
         }
@@ -47,7 +47,7 @@ export default {
       this.observer = new IntersectionObserver(this.handleIntersection);
       this.observer.observe(this.$el);
     } else {
-      this.showImage = true;
+      this.loadImage = true;
     }
   },
   destroyed: function() {
@@ -60,6 +60,10 @@ export default {
 
 <style lang="scss" scoped>
 .browse-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   .count {
     height: 30px;
     text-align: center;
@@ -69,7 +73,7 @@ export default {
     position: relative;
     width: 100%;
     height: 0;
-    padding-top: percentage($card-aspect_ratio);
+    padding-top: percentage($card-aspect-ratio);
   }
 }
 </style>
