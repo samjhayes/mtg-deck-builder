@@ -45,6 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .mana-cost {
   display: flex;
   justify-content: flex-end;

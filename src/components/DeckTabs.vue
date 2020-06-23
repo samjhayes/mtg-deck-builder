@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .deck-tabs {
   margin: 10px 0;
   display: flex;

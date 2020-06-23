@@ -11,6 +11,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 button {
   min-height: $min-input-size;
   border-radius: 10px;

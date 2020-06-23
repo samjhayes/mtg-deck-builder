@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .browse {
   background: $gray;
   position: fixed;

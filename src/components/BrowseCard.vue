@@ -59,6 +59,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .browse-card {
   display: flex;
   flex-direction: column;

@@ -38,6 +38,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 $browse-card-width: 240px;
 
 .browse-list {

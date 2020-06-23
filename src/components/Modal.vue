@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 .modal-wrapper {
   background-color: $modal-background;
   position: fixed;

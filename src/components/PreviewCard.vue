@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../_variables.scss';
+
 $card-width-px: 488px;
 
 .preview-card {

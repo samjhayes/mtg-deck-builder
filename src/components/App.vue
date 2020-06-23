@@ -291,6 +291,8 @@ export default {
 $ms-font-path: '~mana-font/fonts';
 @import 'mana-font/sass/mana';
 
+@import '../_variables.scss';
+
 * {
   box-sizing: border-box;
   user-select: none;
