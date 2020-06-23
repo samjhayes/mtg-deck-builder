@@ -5,9 +5,8 @@ export const getCardDataByName = (data, name) =>
     const lowerName = name.toLowerCase();
     const lowerCardName = card.name.toLowerCase();
     return (
-      (lowerCardName === lowerName ||
-        lowerCardName.split(' // ')[0] === lowerName) &&
-      !card.types.includes('token')
+      lowerCardName === lowerName ||
+      lowerCardName.split(' // ')[0] === lowerName
     );
   });
 
