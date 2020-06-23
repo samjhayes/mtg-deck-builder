@@ -41,7 +41,7 @@ $card-width-px: 488px;
   position: fixed;
   width: $card-width-px;
   height: $card-width-px * $card-aspect-ratio;
-  border-radius: 25px;
   overflow: hidden;
+  border-radius: 30px;
 }
 </style>

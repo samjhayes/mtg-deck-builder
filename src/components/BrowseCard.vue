@@ -74,6 +74,8 @@ export default {
     width: 100%;
     height: 0;
     padding-top: percentage($card-aspect-ratio);
+    overflow: hidden;
+    border-radius: 10px;
   }
 }
 </style>

@@ -26,17 +26,15 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  border-radius: 15px;
-  overflow: hidden;
   background-color: $darkgray;
-  top: 0;
 }
 
 .name,
 .image,
 .card {
-  position: absolute;
   display: block;
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
 }
@@ -51,7 +49,7 @@ export default {
 
 .image {
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 </style>

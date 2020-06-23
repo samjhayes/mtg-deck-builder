@@ -1,5 +1,5 @@
 <template>
-  <main id="app" @click.prevent="resetPreviewCard" @contextmenu.prevent="">
+  <main id="app" @click.prevent="resetPreviewCard">
     <Browse
       :browse-cards="browseCards"
       :deck-cards="deckCards"

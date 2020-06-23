@@ -4,7 +4,7 @@ const fs = require('fs');
 const oracleJsonPath = './src/assets/oracle.json';
 const oracleMinJsonPath = './src/assets/oracle.min.json';
 
-function scryfall(cb) {
+function download(cb) {
   const endpoint = 'https://api.scryfall.com/bulk-data';
   fetch(endpoint)
     .then(response => response.json())
@@ -14,7 +14,7 @@ function scryfall(cb) {
         bulkData => bulkData.type === 'oracle_cards'
       );
       if (bulkOracle && bulkOracle.download_uri) {
-        scryfallOracle(bulkOracle.download_uri, cb);
+        downloadOracle(bulkOracle.download_uri, cb);
       }
     })
     .catch(error => {
@@ -23,7 +23,7 @@ function scryfall(cb) {
     });
 }
 
-function scryfallOracle(uri, cb) {
+function downloadOracle(uri, cb) {
   fetch(uri)
     .then(response => response.json())
     .then(response => {
@@ -39,6 +39,44 @@ function scryfallOracle(uri, cb) {
     });
 }
 
+function remap(cb) {
+  fs.readFile(oracleJsonPath, function(error, data) {
+    if (!error) {
+      const json = JSON.parse(data.toString());
+      const remapped = remapOracle(json);
+      fs.writeFileSync(oracleMinJsonPath, remapped);
+    } else {
+      console.error(error);
+    }
+    cb();
+  });
+}
+
+function remapOracle(json) {
+  const cards = filterOracle(json);
+  const remapped = cards.map(card => ({
+    id: card.oracle_id,
+    n: card.name,
+    cc: card.cmc,
+    k: card.keywords,
+    i: processImages(card),
+    mc: processManaCost(card),
+    c: processColors(card.color_identity),
+    t: processType(card.type_line),
+  }));
+  return JSON.stringify(remapped);
+}
+
+function filterOracle(json) {
+  return json.filter(
+    card =>
+      card.type_line !== 'Card' &&
+      !['scheme', 'token'].includes(card.layout) &&
+      (card.image_uris !== undefined ||
+        (card.card_faces && card.card_faces[0].image_uris !== undefined))
+  );
+}
+
 function processImages(card) {
   const { image_uris, card_faces } = card;
   let images = [];
@@ -51,20 +89,6 @@ function processImages(card) {
     }
   }
   return images;
-}
-
-function formatManaCosts(manaCost) {
-  const costsOut = [];
-  manaCost.split(' // ').forEach(cost => {
-    const processed = cost
-      .trim()
-      .toLowerCase()
-      .slice(1, cost.length - 1)
-      .replace(/\//g, '')
-      .split('}{');
-    costsOut.push(processed);
-  });
-  return costsOut;
 }
 
 function processManaCost(card) {
@@ -85,6 +109,20 @@ function processManaCost(card) {
   return costsOut;
 }
 
+function formatManaCosts(manaCost) {
+  const costsOut = [];
+  manaCost.split(' // ').forEach(cost => {
+    const processed = cost
+      .trim()
+      .toLowerCase()
+      .slice(1, cost.length - 1)
+      .replace(/\//g, '')
+      .split('}{');
+    costsOut.push(processed);
+  });
+  return costsOut;
+}
+
 function processColors(colors) {
   const lower = [];
   for (let i = 0; i < colors.length; i += 1) {
@@ -97,38 +135,6 @@ function processType(type) {
   return type.split(' // ');
 }
 
-function remapOracle(json) {
-  const cards = json.filter(
-    card =>
-      card.type_line !== 'Card' &&
-      (card.image_uris !== undefined ||
-        (card.card_faces && card.card_faces[0].image_uris !== undefined))
-  );
-  const remapped = cards.map(card => ({
-    id: card.oracle_id,
-    n: card.name,
-    cc: card.cmc,
-    k: card.keywords,
-    i: processImages(card),
-    mc: processManaCost(card),
-    c: processColors(card.color_identity),
-    t: processType(card.type_line),
-  }));
-  return JSON.stringify(remapped);
-}
-
-function remap(cb) {
-  fs.readFile(oracleJsonPath, function(error, data) {
-    if (!error) {
-      const json = JSON.parse(data.toString());
-      const remapped = remapOracle(json);
-      fs.writeFileSync(oracleMinJsonPath, remapped);
-    } else {
-      console.error(error);
-    }
-    cb();
-  });
-}
-
-exports.default = scryfall;
+exports.default = download;
+exports.download = download;
 exports.remap = remap;
