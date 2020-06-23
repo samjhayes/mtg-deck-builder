@@ -15,7 +15,7 @@ export default {
     deck: Array,
   },
   computed: {
-    manaCostCounts: function() {
+    manaCostCounts() {
       const counts = {};
       for (let i = 0; i < MANA_COST_BREAKPOINT; i += 1) {
         counts[i] = 0;

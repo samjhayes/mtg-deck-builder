@@ -25,7 +25,7 @@ export default {
     card: Object,
     count: Number,
   },
-  data: function() {
+  data() {
     return {
       loadImage: false,
       observer: null,
@@ -42,7 +42,7 @@ export default {
       });
     },
   },
-  mounted: function() {
+  mounted() {
     if (window['IntersectionObserver']) {
       this.observer = new IntersectionObserver(this.handleIntersection);
       this.observer.observe(this.$el);
@@ -50,7 +50,7 @@ export default {
       this.loadImage = true;
     }
   },
-  destroyed: function() {
+  destroyed() {
     if (this.observer) {
       this.observer.disconnect();
     }

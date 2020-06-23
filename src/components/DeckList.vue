@@ -23,7 +23,7 @@ export default {
     deck: Array,
   },
   computed: {
-    sortedDeck: function() {
+    sortedDeck() {
       const deck = [...this.deck];
       return this.sortCardsByCMC(deck);
     },

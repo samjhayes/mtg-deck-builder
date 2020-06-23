@@ -40,23 +40,10 @@ export default {
     mode: String,
   },
   computed: {
-    deck: function() {
-      const mainCards = [];
-      const sideboardCards = [];
-      this.deckCards.forEach(card => {
-        if (card.mainCount) {
-          mainCards.push({ ...card, count: card.mainCount });
-        }
-        if (card.sideboardCount) {
-          sideboardCards.push({ ...card, count: card.sideboardCount });
-        }
-      });
-      return {
-        mainCards,
-        sideboardCards,
-      };
+    deck() {
+      return this.getSeparateMainAndSideboard(this.deckCards);
     },
-    activeDeck: function() {
+    activeDeck() {
       if (this.mode === 'main') {
         return this.deck.mainCards;
       } else {

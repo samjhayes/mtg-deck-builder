@@ -23,7 +23,7 @@ export default {
     manaCost: Array,
   },
   computed: {
-    processedManaCost: function() {
+    processedManaCost() {
       const manaCost = [];
       if (this.manaCost) {
         this.manaCost.forEach(mana => {

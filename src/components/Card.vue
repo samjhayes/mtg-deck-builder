@@ -13,7 +13,7 @@ export default {
     loadImage: Boolean,
   },
   computed: {
-    style: function() {
+    style() {
       const style = {};
       if (this.loadImage) {
         style.backgroundImage = `url(${this.card.images[0]})`;
