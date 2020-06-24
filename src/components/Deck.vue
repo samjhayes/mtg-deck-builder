@@ -16,7 +16,7 @@
       @remove-card-from-deck="$emit('remove-card-from-deck', $event)"
       @show-preview-card="$emit('show-preview-card', $event)"
     />
-    <DeckStats :deck="activeDeck" />
+    <!-- <DeckStats :deck="activeDeck" /> -->
   </div>
 </template>
 
@@ -24,14 +24,14 @@
 import DeckActions from './DeckActions.vue';
 import DeckTabs from './DeckTabs.vue';
 import DeckList from './DeckList.vue';
-import DeckStats from './DeckStats.vue';
+// import DeckStats from './DeckStats.vue';
 
 export default {
   name: 'Deck',
   components: {
     DeckActions,
     DeckList,
-    DeckStats,
+    // DeckStats,
     DeckTabs,
   },
   props: {

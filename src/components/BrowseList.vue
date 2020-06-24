@@ -40,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 @import '../_variables.scss';
 
-$browse-card-width: 240px;
+$browse-card-width: 220px;
 
 .browse-list {
   padding: 20px;

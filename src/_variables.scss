@@ -7,6 +7,9 @@ $card-width: 488;
 $card-height: 680;
 $card-aspect-ratio: $card-height / $card-width;
 
+$preview-card-width: 320;
+$preview-card-height: $preview-card-width * $card-aspect-ratio;
+
 // Colors
 
 $backgroundColors: (

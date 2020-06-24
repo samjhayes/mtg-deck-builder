@@ -22,9 +22,9 @@ export default {
   computed: {
     style() {
       const { x, y, offsetX, offsetY } = this;
-      const { cardWidth, cardHeight } = this.theme;
-      const left = offsetX ? x - cardWidth : x;
-      const top = offsetY ? y - cardHeight : y;
+      const { previewCardWidth, previewCardHeight } = this.theme;
+      const left = offsetX ? x - previewCardWidth : x;
+      const top = offsetY ? y - previewCardHeight : y;
       return {
         left: `${left}px`,
         top: `${top}px`,
@@ -37,13 +37,11 @@ export default {
 <style lang="scss" scoped>
 @import '../_variables.scss';
 
-$card-width-px: 488px;
-
 .preview-card {
   position: fixed;
-  width: $card-width-px;
-  height: $card-width-px * $card-aspect-ratio;
+  width: $preview-card-width * 1px;
+  height: $preview-card-height * 1px;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 20px;
 }
 </style>
