@@ -4,6 +4,10 @@ const fs = require('fs');
 const oracleJsonPath = './src/assets/oracle.json';
 const oracleMinJsonPath = './src/assets/oracle.min.json';
 
+function build(cb) {
+  download(cb);
+}
+
 function download(cb) {
   const endpoint = 'https://api.scryfall.com/bulk-data';
   fetch(endpoint)
@@ -136,6 +140,7 @@ function processType(type) {
   return type.split(' // ');
 }
 
-exports.default = download;
+exports.default = build;
+exports.build = build;
 exports.download = download;
 exports.remap = remap;
