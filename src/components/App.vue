@@ -95,9 +95,6 @@ export default {
       this.importAddedCards = [];
       this.importMissingCards = [];
     },
-    exportDeck() {
-      console.log('export deck');
-    },
     importDeck(text) {
       this.setIsLoading(true);
       this.closeModal();
