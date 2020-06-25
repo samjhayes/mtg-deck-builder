@@ -11,4 +11,7 @@ module.exports = merge(common, {
       chunks: 'all',
     },
   },
+  performance: {
+    hints: false,
+  },
 });

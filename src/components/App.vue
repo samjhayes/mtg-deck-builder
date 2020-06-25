@@ -1,5 +1,5 @@
 <template>
-  <main id="app" @click.prevent="resetPreviewCard">
+  <main id="app" @click.prevent="resetPreviewCard" @contextmenu.prevent>
     <Browse
       :browse-cards="browseCards"
       :deck-cards="deckCards"
@@ -46,9 +46,7 @@
       :deck-cards="deckCards"
       @close-modal="closeModal"
     />
-    <div class="loading" v-if="isLoading">
-      Loading
-    </div>
+    <Loading :is-loading="isLoading" />
   </main>
 </template>
 
@@ -58,6 +56,7 @@ import Deck from './Deck.vue';
 import ExportDeckModal from './ExportDeckModal.vue';
 import ImportDeckModal from './ImportDeckModal.vue';
 import ImportFinishedModal from './ImportFinishedModal.vue';
+import Loading from './Loading.vue';
 import PreviewCard from './PreviewCard.vue';
 import { modals } from '../enums.js';
 
@@ -71,6 +70,7 @@ export default {
     ExportDeckModal,
     ImportDeckModal,
     ImportFinishedModal,
+    Loading,
     PreviewCard,
   },
   data() {
@@ -266,7 +266,7 @@ export default {
   },
   mounted: async function() {
     const data = await import(
-      /* webpackChunkName: "OracleCardData" */ '../assets/oracle.min.json'
+      /* webpackChunkName: "cards" */ '../assets/oracle.min.json'
     );
     this.data = data.default.map(card => ({
       id: card.id,
@@ -318,18 +318,5 @@ button {
   padding: 0;
   border: none;
   background-color: transparent;
-}
-
-.loading {
-  color: white;
-  background-color: $modal-background;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 }
 </style>
