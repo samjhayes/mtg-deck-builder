@@ -5,8 +5,8 @@
   "author": "Sam Hayes <sam.hayes.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js",
-    "prod": "webpack --config webpack.prod.js",
+    "dev": "webpack-dev-server --config 'config/webpack.dev.js'",
+    "prod": "webpack --config 'config/webpack.prod.js'",
     "build": "gulp build && yarn prod",
     "lint": "cross-env eslint $PWD/'src/**/*.{js,vue}' --fix",
     "format": "cross-env prettier-eslint --write $PWD/'src/**/*.{js,vue}'"
